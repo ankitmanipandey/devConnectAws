@@ -11,6 +11,8 @@ const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
+const port = process.env.PORT || 1111
+
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -50,7 +52,7 @@ app.get('/user', userAuth, async (req, res) => {
 connectDB()
     .then(() => {
         console.log('Database connection established')
-        app.listen(1111, () => {
+        app.listen(port, () => {
             console.log("Connection Success at port 1111");
         })
     })
