@@ -15,8 +15,7 @@ export default function Requests() {
   const handleRequest = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.get(`${BASE_URL}/user/pending/requests`,
-        { withCredentials: true })
+      const res = await axios.get(`${BASE_URL}/user/pending/requests`, { withCredentials: true })
       dispatch(addRequests(res?.data?.connectionRequests))
       dispatch(setLoader(false))
     }
@@ -36,8 +35,8 @@ export default function Requests() {
     < div className='w-full min-h-screen fixed flex flex-col mt-10 items-center gap-3' >
       {requestedUser.map((user) => {
         return < RequestCard requestId={user?._id} key={user?.fromUserId?._id}
-          userName={user?.fromUserId?.name} photoUrl={user?.fromUserId?.photoUrl}
-          about={user.fromUserId?.about} skills={user.fromUserId?.skills.join(",")} />
+          userName={user?.fromUserId?.name} photoUrl={user?.fromUserId?.photoUrl} about={user.fromUserId?.about}
+          skills={user.fromUserId?.skills.join(",")} />
       })}
 
     </ div>

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { addUser } from "../config/userSlice"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
-import { BASE_URL, DEFAULT_PHOTOURL } from "../hardcoded/constants"
+import { BASE_URL, CLOUDINARY_URL, DEFAULT_PHOTOURL } from "../hardcoded/constants"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [skills, setSkills] = useState("")
-  const [photoUrl, setPhotoUrl] = useState(`${DEFAULT_PHOTOURL}`)
+  const [photoUrl, setPhotoUrl] = useState(DEFAULT_PHOTOURL)
   const [about, setAbout] = useState("")
   const loader = useSelector(store => store.switch.loader)
 
@@ -30,12 +30,12 @@ const Login = () => {
     data.append("upload_preset", "photoURL")
     data.append("cloud_name", "daiiyb5u4")
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/daiiyb5u4/image/upload", {
+      const res = await fetch(CLOUDINARY_URL, {
         method: "POST",
         body: data
       })
       const photoPath = await res.json()
-      setPhotoUrl(photoPath?.url || "https://imgs.search.brave.com/d-Ko-GY3RysXK7ODXK88D4ZaZZOWaICEHZ8U2onjEa4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA5LzQwLzk4Lzc2/LzM2MF9GXzk0MDk4/NzY5M19wMzI5TjJk/RkNXN2pHN1lxdDNr/NUg5ZHhLb1lxS1NJ/US5qcGc")
+      setPhotoUrl(photoPath?.url || DEFAULT_PHOTOURL)
       dispatch(setLoader(false))
     }
     catch (err) {
@@ -58,7 +58,7 @@ const Login = () => {
         navigate("/feed")
         dispatch(addUser(res.data))
         dispatch(setLoader(false))
-        toast.success("Login Successfull")
+        toast.success("Logged In Successfully")
       }
 
     }
@@ -78,6 +78,7 @@ const Login = () => {
         navigate("/feed")
         dispatch(addUser(res.data))
         dispatch(setLoader(false))
+        toast.success("Signed Up Successfully")
       }
     }
     catch (err) {
@@ -201,7 +202,7 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-center md:w-full">
-              <button type="button" className={`text-white px-4 py-2 rounded-lg w-full mt-6 md:w-1/2  bg-[#051f89] hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer`}
+              <button type="button" className="text-white px-4 py-2 rounded-lg w-full mt-6 md:w-1/2 bg-[#051f89] hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer"
                 onClick={isSignup ? handleSignUp : handleLogin}
               >
                 {`${isSignup ? "Sign up" : "Login"}`}

@@ -17,7 +17,7 @@ export default function MobileOptions() {
             await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true })
             dispatch(removeUser())
             dispatch(setLoader(false))
-            toast.success("Signed out Successfully")
+            toast.success("Signed Out Successfully")
         }
         catch (err) {
             dispatch(setLoader(false))

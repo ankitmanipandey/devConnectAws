@@ -18,7 +18,7 @@ export default function ProfileEditCard(props) {
         data.append("upload_preset", "photoURL")
         data.append("cloud_name", "daiiyb5u4")
         try {
-            const res = await fetch(`${CLOUDINARY_URL}`, {
+            const res = await fetch(CLOUDINARY_URL, {
                 method: "POST",
                 body: data
             })

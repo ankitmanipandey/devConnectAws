@@ -1,10 +1,10 @@
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import Navbar from "./Navbar"
 import axios from "axios"
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addUser } from "../config/userSlice"
-import { BASE_URL, BACKGROUND_IMAGE } from "../hardcoded/constants"
+import { BACKGROUND_IMAGE, BASE_URL } from "../hardcoded/constants"
 
 const Body = () => {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const Body = () => {
 
     const fetchUserData = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/profile/view`,
+            const res = await axios.get(`${BASE_URL}`,
                 { withCredentials: true })
             dispatch(addUser(res.data))
         }
