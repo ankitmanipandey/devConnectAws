@@ -35,14 +35,14 @@ const Login = () => {
         body: data
       })
       const photoPath = await res.json()
-      setPhotoUrl(photoPath?.url)
-      dispatch(setLoader(false))
+      const secureUrl = photoPath?.url?.replace("http://", "https://")
+      setPhotoUrl(secureUrl)
+      toast.success("Save to Upload the photo")
     }
     catch (err) {
       toast.error("Error in Uploading the data")
     }
     finally {
-      toast.success("Sign Up to Upload data")
       dispatch(setLoader(false))
     }
   }
