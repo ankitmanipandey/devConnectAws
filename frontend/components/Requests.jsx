@@ -1,0 +1,39 @@
+import React, { useEffect } from 'react'
+import RequestCard from './RequestCard'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addRequests } from '../config/requestSlice'
+import { setLoader } from '../config/switchSlice'
+import Loader from './Loader'
+import { toast } from 'react-toastify'
+
+export default function Requests() {
+  const dispatch = useDispatch()
+  const loader = useSelector(store => store.switch.loader)
+  const requestedUser = useSelector(store => store.request)
+  const handleRequest = async () => {
+    try {
+      dispatch(setLoader(true))
+      const res = await axios.get("http://localhost:1111/user/pending/requests", { withCredentials: true })
+      dispatch(addRequests(res?.data?.connectionRequests))
+      dispatch(setLoader(false))
+    }
+    catch (err) {
+      dispatch(setLoader(false))
+      toast.error("Error in getting Requests")
+    }
+  }
+
+  useEffect(() => {
+    handleRequest()
+  }, [])
+
+  if (!requestedUser) return
+
+  return loader ? <Loader /> : (
+    < div className='w-full min-h-screen fixed flex flex-col mt-10 items-center gap-3' >
+      {requestedUser.map((user) => { return < RequestCard requestId={user?._id} key={user?.fromUserId?._id} userName={user?.fromUserId?.name} photoUrl={user?.fromUserId?.photoUrl} about={user.fromUserId?.about} skills={user.fromUserId?.skills.join(",")} /> })}
+
+    </ div>
+  )
+}
