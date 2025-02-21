@@ -7,13 +7,13 @@ const ConnectionDetailCard = ({ connection, setIsDetailCard }) => {
             </div>
 
             <div className='h-[30%] w-full flex justify-center items-center' >
-                <img src={connection.photoUrl} alt="/url" className='object-cover size-36 rounded-full'  ></img>
+                <img src={connection?.photoUrl} alt="/url" className='object-cover size-36 rounded-full'  ></img>
             </div>
             <div className='h-[50%] flex flex-col justify-center items-center' >
                 <h2 className='text-xl font-semibold'>{connection.name}</h2>
-                <h2>{connection.emailId}</h2>
-                <h2>{connection.about}</h2>
-                <h2>{connection.skills}</h2>
+                <h2>{connection?.emailId}</h2>
+                <h2>{connection?.about}</h2>
+                <h2>{connection?.skills}</h2>
 
             </div>
 

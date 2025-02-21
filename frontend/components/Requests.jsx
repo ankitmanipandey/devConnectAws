@@ -10,8 +10,8 @@ import { BASE_URL } from '../hardcoded/constants'
 
 export default function Requests() {
   const dispatch = useDispatch()
-  const loader = useSelector(store => store.switch.loader)
-  const requestedUser = useSelector(store => store.request)
+  const loader = useSelector(store => store?.switch?.loader)
+  const requestedUser = useSelector(store => store?.request)
   const handleRequest = async () => {
     try {
       dispatch(setLoader(true))

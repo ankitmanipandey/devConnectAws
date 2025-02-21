@@ -64,7 +64,7 @@ const Login = () => {
     }
     catch (err) {
       dispatch(setLoader(false))
-      toast.error("Error in Login")
+      toast.error("Error in Loggin In!")
     }
   }
 
@@ -83,7 +83,7 @@ const Login = () => {
     }
     catch (err) {
       dispatch(setLoader(false))
-      toast.error(err.response.data);
+      toast.error(err?.response?.data);
 
     }
   }

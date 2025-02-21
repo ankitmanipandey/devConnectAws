@@ -10,14 +10,14 @@ import Loader from "./Loader"
 import { BASE_URL } from "../hardcoded/constants"
 
 const Navbar = () => {
-    const loader = useSelector(store => store.switch.loader)
+    const loader = useSelector(store => store?.switch?.loader)
     const location = useLocation()
     const dispatch = useDispatch()
     const profileRef = useRef()
     const mobileRef = useRef()
-    const { isProfileNav } = useSelector(store => store.switch)
-    const { isMobileOptions } = useSelector(store => store.switch)
-    const user = useSelector(store => store.user)
+    const { isProfileNav } = useSelector(store => store?.switch)
+    const { isMobileOptions } = useSelector(store => store?.switch)
+    const user = useSelector(store => store?.user)
     const navigate = useNavigate()
     const handleSignOut = async () => {
         try {
@@ -43,7 +43,7 @@ const Navbar = () => {
     }
     useEffect(() => {
         const handleMobileOutsideClick = (event) => {
-            if (mobileRef.current && !mobileRef.current.contains(event.target)) {
+            if (mobileRef?.current && !mobileRef?.current?.contains(event?.target)) {
                 dispatch(toggleMobileOptions(false))
             }
         }
@@ -57,7 +57,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const handelOutSideClick = (event) => {
-            if (profileRef.current && !profileRef.current.contains(event.target)) {
+            if (profileRef?.current && !profileRef?.current?.contains(event.target)) {
                 dispatch(toggleProfileNav(false))
             }
         }
@@ -71,7 +71,7 @@ const Navbar = () => {
     }, [isProfileNav])
     return loader ? <Loader /> : (
         <>
-            {(location.pathname !== ("/") && location.pathname.toString() != ("/login") && user) && <div className="h-14 bg-[#00092d] relative px-4 md:px-8 border-b-[0.1px] flex items-center justify-between">
+            {(location?.pathname !== ("/") && location?.pathname.toString() != ("/login") && user) && <div className="h-14 bg-[#00092d] relative px-4 md:px-8 border-b-[0.1px] flex items-center justify-between">
                 <div className="h-12 flex items-center gap-4">
                     <div className="h-10 w-10 rounded-full">
                         <button onClick={() => { navigate("/") }}><img src="/logo.png" alt="" className="object-cover rounded-full cursor-pointer" title="Home" /></button>

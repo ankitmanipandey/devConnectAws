@@ -17,8 +17,8 @@ export default function Profile() {
   const [password, setPassword] = useState("")
   const [photoUrl, setPhotoUrl] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
-  const { loader } = useSelector(store => store.switch)
-  const { isProfileEdit } = useSelector(store => store.switch)
+  const { loader } = useSelector(store => store?.switch)
+  const { isProfileEdit } = useSelector(store => store?.switch)
 
   const handleProfileEdit = async () => {
 

@@ -9,8 +9,8 @@ import { BASE_URL } from "../hardcoded/constants";
 
 export default function MobileOptions() {
     const dispatch = useDispatch()
-    const { loader } = useSelector(store => store.switch)
-    const { isMobileOptions } = useSelector(store => store.switch)
+    const { loader } = useSelector(store => store?.switch)
+    const { isMobileOptions } = useSelector(store => store?.switch)
     const handleSignOut = async () => {
         try {
             dispatch(setLoader(true))

@@ -16,8 +16,8 @@ export default function ConnectionCard({ connection }) {
     const handleRemove = async () => {
         try {
             dispatch(setLoader(true))
-            const res = await axios.delete(`${BASE_URL}/user/remove/connection/${connection._id}`, { withCredentials: true })
-            dispatch(updateConnections(connection._id))
+            const res = await axios.delete(`${BASE_URL}/user/remove/connection/${connection?._id}`, { withCredentials: true })
+            dispatch(updateConnections(connection?._id))
             dispatch(setLoader(false))
             toast.success("Connection removed successfully")
         }
@@ -29,9 +29,9 @@ export default function ConnectionCard({ connection }) {
     return loader ? <Loader /> : (
         <>
             <div className='h-[50%] w-[80%] p-5 flex flex-col items-center gap-2 md:h-28 md:w-[70%] bg-[#00092d] opacity-95 rounded-lg  md:flex md:flex-row md:justify-between md:p-3 text-[#FEFFFE] md:items-center'>
-                <img src={connection.photoUrl} alt="" className='h-14 w-14 rounded-full m-1' />
-                <p>{connection.name}</p>
-                <p>{connection.skills}</p>
+                <img src={connection?.photoUrl} alt="" className='h-14 w-14 rounded-full m-1' />
+                <p>{connection?.name}</p>
+                <p>{connection?.skills}</p>
                 <div className='flex gap-4 p-2 font-medium text-[#FEFFFE]'>
                     <button className='py-2 px-3 bg-blue-500 rounded-lg cursor-pointer' onClick={() => { setIsDetailCard(true) }}>Details</button>
                     <button className='py-2 px-3 bg-red-500 rounded-lg cursor-pointer' onClick={handleRemove}>Remove</button>

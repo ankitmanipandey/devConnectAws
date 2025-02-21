@@ -9,7 +9,7 @@ import { BASE_URL } from '../hardcoded/constants'
 
 export default function UserCard({ userName, about, photoUrl, userId }) {
     const dispatch = useDispatch()
-    const { loader } = useSelector(store => store.switch)
+    const { loader } = useSelector(store => store?.switch)
     const handleIgnore = async () => {
         try {
             dispatch(setLoader(true))

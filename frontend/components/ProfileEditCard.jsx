@@ -7,8 +7,8 @@ export default function ProfileEditCard(props) {
     const { name, setName, about, setAbout, skills, setSkills, password, setPassword, setPhotoUrl, setIsUploading, isUploading, handleProfileEdit } = props
     const loader = useSelector(store => store.switch.loader)
     const dispatch = useDispatch()
-    const  user  = useSelector(store => store.user)
-    const { isProfileEdit } = useSelector(store => store.switch)
+    const  user  = useSelector(store => store?.user)
+    const { isProfileEdit } = useSelector(store => store?.switch)
     const handlePhotoUpload = async (event) => {
         setIsUploading(true)
         const file = event.target.files[0]

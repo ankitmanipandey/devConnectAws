@@ -9,7 +9,7 @@ import { BASE_URL } from '../hardcoded/constants'
 
 export default function RequestCard({ userName, photoUrl, about, requestId }) {
     const dispatch = useDispatch()
-    const loader = useSelector(store=>store.switch.loader)
+    const loader = useSelector(store=>store?.switch?.loader)
     const handleReject = async () => {
         try {
             dispatch(setLoader(true))
