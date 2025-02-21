@@ -35,8 +35,7 @@ const Login = () => {
         body: data
       })
       const photoPath = await res.json()
-      const secureUrl = photoPath?.url?.replace("http://", "https://")
-      setPhotoUrl(secureUrl)
+      setPhotoUrl(photoPath?.url)
       toast.success("Save to Upload the photo")
     }
     catch (err) {

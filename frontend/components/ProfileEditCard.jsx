@@ -7,7 +7,7 @@ export default function ProfileEditCard(props) {
     const { name, setName, about, setAbout, skills, setSkills, password, setPassword, setPhotoUrl, setIsUploading, isUploading, handleProfileEdit } = props
     const loader = useSelector(store => store.switch.loader)
     const dispatch = useDispatch()
-    const user = useSelector(store => store?.user)
+    const  user  = useSelector(store => store?.user)
     const { isProfileEdit } = useSelector(store => store?.switch)
     const handlePhotoUpload = async (event) => {
         setIsUploading(true)
@@ -22,8 +22,8 @@ export default function ProfileEditCard(props) {
                 method: "POST",
                 body: data
             })
-            const secureUrl = photoPath?.url?.replace("http://", "https://")
-            setPhotoUrl(secureUrl)
+            const photoPath = await res.json()
+            setPhotoUrl(photoPath?.url)
         }
         catch (err) {
             console.error(err.message)
@@ -34,7 +34,7 @@ export default function ProfileEditCard(props) {
     }
     return (
         <div className='bg-[#00092d] opacity-90 h-108 w-72 mt-5 md:mt-1 m-2 md:w-92  md:h-108 flex flex-col rounded-lg items-center gap-4 justify-center'>
-
+            
             <h2 className='text-[#FEFFFE] font-semibold text-2xl hidden md:block'>Edit Your Profile Here</h2>
             <div className="flex items-center border-1 gap-1 px-1 bg-gray-700 rounded-lg justify-center w-[70%]">
                 <i className="fa-solid fa-user"></i>

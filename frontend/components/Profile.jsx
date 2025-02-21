@@ -44,7 +44,7 @@ export default function Profile() {
   }, [loggedInUser])
 
   return loader ? <Loader /> : (
-    <div className='flex justify-center h-[5  0%] mt-10 items-center'>
+    <div className='flex justify-center h-[50%] mt-2 items-center'>
       <div className='md:h-[77%]'>
         <div className='flex justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='size-20 md:hidden rounded-full' />
