@@ -26,7 +26,12 @@ authRouter.post('/signup', async (req, res) => {
             , password: hashedPassword, skills: skills.split(","), about
         })
         const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
-        res.cookie("token", token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "none",
+            path: "/"
+        })
 
         return res.status(200).send(user)
     }
@@ -47,7 +52,12 @@ authRouter.post('/login', async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if (isPasswordValid) {
             const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
-            res.cookie("token", token)
+            res.cookie("token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV !== "development",
+                sameSite: "none",
+                path: "/"
+            })
             return res.send(user)
         }
         else {
@@ -69,7 +79,12 @@ authRouter.post('/logout', (req, res) => {
 
             }
         )
-        res.clearCookie("token", { path: "/" });
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "none",
+            path: "/"
+        });
         return res.send("Signout Successful")
     }
     catch (err) {
