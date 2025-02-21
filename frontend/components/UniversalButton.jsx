@@ -1,4 +1,3 @@
-
 export default function UniversalButton({ text, handleFunction }) {
     const handleOnClick = () => {
         handleFunction()

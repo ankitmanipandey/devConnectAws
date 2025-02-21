@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleProfileEdit } from '../config/switchSlice'
+import { CLOUDINARY_URL } from '../hardcoded/constants'
 
 export default function ProfileEditCard(props) {
     const { name, setName, about, setAbout, skills, setSkills, password, setPassword, setPhotoUrl, setIsUploading, isUploading, handleProfileEdit } = props
@@ -17,7 +18,7 @@ export default function ProfileEditCard(props) {
         data.append("upload_preset", "photoURL")
         data.append("cloud_name", "daiiyb5u4")
         try {
-            const res = await fetch("https://api.cloudinary.com/v1_1/daiiyb5u4/image/upload", {
+            const res = await fetch(`${CLOUDINARY_URL}`, {
                 method: "POST",
                 body: data
             })

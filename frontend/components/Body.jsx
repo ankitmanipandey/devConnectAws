@@ -1,18 +1,18 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import Navbar from "./Navbar"
 import axios from "axios"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addUser } from "../config/userSlice"
+import { BASE_URL, BACKGROUND_IMAGE } from "../hardcoded/constants"
 
 const Body = () => {
-    const location = useLocation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const fetchUserData = async () => {
         try {
-            const res = await axios.get("http://localhost:1111/profile/view",
+            const res = await axios.get(`${BASE_URL}/profile/view`,
                 { withCredentials: true })
             dispatch(addUser(res.data))
         }
@@ -29,7 +29,7 @@ const Body = () => {
 
     return (
         <div>
-            <img src={`${(location.pathname.toString() === ("/login")) || (location.pathname.toString() === ("/")) ? "/loginpage_bg.jpg" : "/loginpage_bg.jpg"}`} alt="bg-image" className=" absolute -z-10 object-cover h-full w-full" />
+            <img src={BACKGROUND_IMAGE} alt="bg-image" className=" absolute -z-10 object-cover h-full w-full" />
             <Navbar />
             <Outlet />
         </div>

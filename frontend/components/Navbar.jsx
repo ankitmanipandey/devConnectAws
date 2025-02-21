@@ -7,6 +7,7 @@ import { removeUser } from "../config/userSlice"
 import axios from "axios"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
+import { BASE_URL } from "../hardcoded/constants"
 
 const Navbar = () => {
     const loader = useSelector(store => store.switch.loader)
@@ -21,7 +22,7 @@ const Navbar = () => {
     const handleSignOut = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post("http://localhost:1111/logout", {}, {
+            await axios.post(`${BASE_URL}/logout`, {}, {
                 withCredentials: true
             })
             dispatch(removeUser())

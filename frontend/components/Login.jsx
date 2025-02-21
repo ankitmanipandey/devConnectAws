@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { addUser } from "../config/userSlice"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
+import { BASE_URL, DEFAULT_PHOTOURL } from "../hardcoded/constants"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -16,10 +17,9 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [skills, setSkills] = useState("")
-  const [photoUrl, setPhotoUrl] = useState("https://imgs.search.brave.com/d-Ko-GY3RysXK7ODXK88D4ZaZZOWaICEHZ8U2onjEa4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA5LzQwLzk4Lzc2/LzM2MF9GXzk0MDk4/NzY5M19wMzI5TjJk/RkNXN2pHN1lxdDNr/NUg5ZHhLb1lxS1NJ/US5qcGc")
+  const [photoUrl, setPhotoUrl] = useState(`${DEFAULT_PHOTOURL}`)
   const [about, setAbout] = useState("")
   const loader = useSelector(store => store.switch.loader)
-  const [isUploading, setIsUploading] = useState(false)
 
   const handlePhotoUpload = async (event) => {
     dispatch(setLoader(true))
@@ -50,7 +50,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.post("http://localhost:1111/login", {
+      const res = await axios.post(`${BASE_URL}/login`, {
         emailId, password
       }, { withCredentials: true })
 
@@ -71,7 +71,7 @@ const Login = () => {
   const handleSignUp = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.post("http://localhost:1111/signup", {
+      const res = await axios.post(`${BASE_URL}/signup`, {
         name, emailId, password, skills, ...(photoUrl && { photoUrl }), about
       }, { withCredentials: true })
       if (res.status === 200) {
@@ -201,9 +201,8 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-center md:w-full">
-              <button type="button" className={`text-white px-4 py-2 rounded-lg w-full mt-6 md:w-1/2 ${isUploading ? "bg-gray-400" : "bg-[#051f89] hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer"}`}
+              <button type="button" className={`text-white px-4 py-2 rounded-lg w-full mt-6 md:w-1/2  bg-[#051f89] hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer`}
                 onClick={isSignup ? handleSignUp : handleLogin}
-                disabled={isUploading}
               >
                 {`${isSignup ? "Sign up" : "Login"}`}
               </button>

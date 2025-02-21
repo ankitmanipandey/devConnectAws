@@ -5,6 +5,7 @@ import axios from "axios";
 import { setLoader, toggleProfileEdit } from "../config/switchSlice";
 import Loader from "./Loader";
 import { toast } from "react-toastify"
+import { BASE_URL } from "../hardcoded/constants";
 
 export default function MobileOptions() {
     const dispatch = useDispatch()
@@ -13,10 +14,10 @@ export default function MobileOptions() {
     const handleSignOut = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post("http://localhost:1111/logout", {}, { withCredentials: true })
+            await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true })
             dispatch(removeUser())
             dispatch(setLoader(false))
-            toast.success("Sign Out Successfull")
+            toast.success("Signed out Successfully")
         }
         catch (err) {
             dispatch(setLoader(false))

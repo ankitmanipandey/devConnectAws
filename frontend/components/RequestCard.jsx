@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateRequests } from '../config/requestSlice'
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
+import { BASE_URL } from '../hardcoded/constants'
 
 export default function RequestCard({ userName, photoUrl, about, requestId }) {
     const dispatch = useDispatch()
-    const loader = useSelector(store=>store.switch.loader)
+    const loader = useSelector(store => store.switch.loader)
     const handleReject = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post(`http://localhost:1111/request/review/rejected/${requestId}`, {}, { withCredentials: true })
+            await axios.post(`${BASE_URL}/request/review/rejected/${requestId}`, {}, { withCredentials: true })
             dispatch(updateRequests(requestId))
             dispatch(setLoader(false))
             toast.success("Successfully Rejected")
@@ -24,7 +25,7 @@ export default function RequestCard({ userName, photoUrl, about, requestId }) {
     const handleAccept = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post(`http://localhost:1111/request/review/accepted/${requestId}`, {}, { withCredentials: true })
+            await axios.post(`${BASE_URL}/request/review/accepted/${requestId}`, {}, { withCredentials: true })
             dispatch(updateRequests(requestId))
             dispatch(setLoader(false))
             toast.success("Accepted Successfully")
