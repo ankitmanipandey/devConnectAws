@@ -21,7 +21,7 @@ export default function MobileOptions() {
         }
         catch (err) {
             dispatch(setLoader(false))
-            toast.error("Error in sign out !!")
+            toast.error("Error in Signing out !!")
         }
     }
     return loader ? <Loader /> : (

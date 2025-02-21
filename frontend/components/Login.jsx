@@ -35,7 +35,7 @@ const Login = () => {
         body: data
       })
       const photoPath = await res.json()
-      setPhotoUrl(photoPath?.url || DEFAULT_PHOTOURL)
+      setPhotoUrl(photoPath?.url)
       dispatch(setLoader(false))
     }
     catch (err) {
@@ -64,7 +64,7 @@ const Login = () => {
     }
     catch (err) {
       dispatch(setLoader(false))
-      toast.error("Error in Loggin In!")
+      toast.error(err?.response?.data)
     }
   }
 

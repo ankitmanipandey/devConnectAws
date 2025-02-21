@@ -10,7 +10,7 @@ const validateSignUpData = (req) => {
     if (!validator.isStrongPassword(password)) {
         throw new Error("Enter Strong Password")
     }
-    if (skills.split(",") && skills.split(",").length > 10) {
+    if (skills && skills.length > 10) {
         throw new Error("Skills can't be more than 10")
     }
     if (!about) {
