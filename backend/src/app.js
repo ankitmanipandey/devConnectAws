@@ -26,34 +26,13 @@ app.use('/', profileRouter)
 app.use('/', requestRouter)
 app.use('/', userRouter)
 
-//reading the data
-
-app.get('/user', userAuth, async (req, res) => {
-    const query = req.body.userName
-    try {
-        const data = await User.find({ firstName: query })
-        if (!data) {
-            return res.status(404).send("User Not Found");
-        }
-        else {
-            return res.send(data)
-        }
-    }
-    catch (err) {
-        console.error("Something went wrong")
-        return res.status(500).send("Server Error");
-    }
-})
-
-
-
 //Database and server call
 
 connectDB()
     .then(() => {
         console.log('Database connection established')
         app.listen(port, () => {
-            console.log("Connection Success at port 1111");
+            console.log(`Connection Success at port ${port}`);
         })
     })
     .catch((err) => {
