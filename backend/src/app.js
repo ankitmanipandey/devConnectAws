@@ -15,7 +15,7 @@ const port = process.env.PORT || 1111
 
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://devconnect-frontend-ozys.onrender.com",
     credentials: true,
 }))
 app.use(express.json())
