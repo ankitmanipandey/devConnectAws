@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const User = require('../model/user.js')
 const jwt = require('jsonwebtoken')
 const authRouter = express.Router()
-const sendMail = require('../middlewares/emailPasswordReset.js');
+const sendMail = require('../middlewares/nodemailer.js');
 const { FRONTEND_URL } = require('../utils/constants.js');
 
 //creating the data / signup

@@ -8,6 +8,7 @@ const profileRouter = require('../routes/profile.js')
 const requestRouter = require('../routes/request.js')
 const userRouter = require('../routes/user')
 const cors = require('cors')
+const { FRONTEND_URL } = require('../utils/constants.js')
 require('dotenv').config()
 
 const app = express()
@@ -15,7 +16,7 @@ const port = process.env.PORT || 1111
 
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URL,
     credentials: true,
 }))
 app.use(express.json())
