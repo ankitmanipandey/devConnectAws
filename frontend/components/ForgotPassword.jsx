@@ -23,11 +23,11 @@ export default function ForgotPassword() {
                 emailId
             }, { withCredentials: true })
             dispatch(setLoader(false))
-            toast.success(res.data.message)
+            toast.success(res?.data?.message)
         }
         catch (err) {
             dispatch(setLoader(false))
-            toast.error(err.response.data.message)
+            toast.error(err?.response?.data?.message)
         }
     }
 
@@ -36,10 +36,11 @@ export default function ForgotPassword() {
             dispatch(setLoader(true))
             const params = new URLSearchParams(location.search)
             const token = params.get("token")
-            const res = await axios.post(`http://localhost:1111/reset/password?token=${token}`, {
+            const res = await axios.post(`${BASE_URL}/reset/password?token=${token}`, {
                 password
             }, { withCredentials: true })
-            if (res.data.success === true) {
+            
+            if (res?.data?.success === true) {
                 dispatch(setLoader(false))
                 navigate("/login")
             }
@@ -48,7 +49,7 @@ export default function ForgotPassword() {
         }
         catch (err) {
             dispatch(setLoader(false))
-            toast.error(err.response.data.message)
+            toast.error(err?.response?.data?.message)
         }
 
     }
@@ -85,10 +86,10 @@ export default function ForgotPassword() {
                             </input>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center w-[50%] ml-8">
-                        <div className="w-full">
+                    <div className="flex justify-center items-center w-[50%]">
+                        <div className="w-full flex justify-center gap-2 mx-1">
                             <button type="button"
-                                className="bg-[#051f89] text-white  px-4 py-2 rounded-lg  mt-6 md:w-1/2 hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer"
+                                className="bg-[#051f89] text-white  px-4 py-2  rounded-lg  mt-6 md:w-1/2 hover:bg-blue-700 hover:scale-105 transition-all cursor-pointer"
                                 onClick={() => (!isEmailVerified ? handleVerifyBtn() : handleResetBtn())}
                             >
                                 {isEmailVerified ? "Reset" : "Verify"}
