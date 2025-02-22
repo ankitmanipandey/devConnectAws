@@ -1,9 +1,12 @@
 const express = require('express');
 const validateSignUpData = require('../utils/postValidate');
+const validate = require('validator')
 const bcrypt = require('bcrypt')
 const User = require('../model/user.js')
 const jwt = require('jsonwebtoken')
 const authRouter = express.Router()
+const sendMail = require('../middlewares/emailPasswordReset.js');
+const { FRONTEND_URL } = require('../utils/constants.js');
 
 //creating the data / signup
 
@@ -92,5 +95,63 @@ authRouter.post('/logout', (req, res) => {
     }
 
 })
+
+//Forgot Password api (Verification of the user)
+
+authRouter.post("/verify/user", async (req, res) => {
+    try {
+        const { emailId } = req.body
+        if (!validate.isEmail(emailId)) {
+            res.status(400).json({ success: false, message: "Enter Valid Email Id !!" })
+        }
+        const user = await User.findOne({ emailId })
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User does not exists" })
+        }
+        const token = await jwt.sign({ emailId }, process.env.PRIVATE_KEY, {
+            expiresIn: "10m"
+        })
+
+        const resetLink = `${FRONTEND_URL}/forgot/password?token=${token}`
+        sendMail(emailId, resetLink)
+        return res.json({ success: true, message: "Reset link sent to your Email Id" })
+    }
+    catch (err) {
+        return res.json({ success: false, message: "User Verification Failed" })
+    }
+
+})
+
+//Forgot Password (Reseting the password)
+authRouter.post("/reset/password", async (req, res) => {
+    try {
+        {
+            const { token } = req.query
+            const { password } = req.body
+            if (!token) {
+                return res.status(404).json({ success: false, message: "Token Not Received" })
+            }
+            const { emailId } = await jwt.verify(token, process.env.PRIVATE_KEY)
+
+            const user = await User.findOne({ emailId })
+
+            const newPassword = password
+            if (!validate.isStrongPassword(newPassword)) {
+                return res.status(400).json({ success: false, message: "Enter Strong Password" })
+            }
+            const hashedPassword = await bcrypt.hash(newPassword, 10)
+            user.password = hashedPassword
+
+            await user.save()
+            return res.json({ success: true, message: "Password Changed Successfully" })
+        }
+    }
+    catch (err) {
+        return res.json({ success: false, message: "Password Reset could not be Done" })
+    }
+
+})
+
+
 
 module.exports = authRouter

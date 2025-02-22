@@ -4,11 +4,13 @@ import axios from "axios"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { addUser } from "../config/userSlice"
+import { setIsEmailVerified } from '../config/switchSlice'
 import { BACKGROUND_IMAGE, BASE_URL } from "../hardcoded/constants"
 
 const Body = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const fetchUserData = async () => {
         try {
@@ -17,10 +19,15 @@ const Body = () => {
             dispatch(addUser(res.data))
         }
         catch (err) {
-            if (err.status === 401) {
+            const params = new URLSearchParams(location.search)
+            const token = params.get("token")
+            if (err.response.status === 401 && location.pathname === "/forgot/password") {
+                navigate(token ? `/forgot/password?token=${token}` : "/forgot/password")
+                dispatch(setIsEmailVerified(true))
+            }
+            else {
                 navigate("/")
             }
-            console.log(err.message)
         }
     }
     useEffect(() => {

@@ -8,7 +8,8 @@ const switchSlice = createSlice({
         isSignup: false,
         isDetailCard: false,
         isProfileEdit: false,
-        loader: false
+        loader: false,
+        isEmailVerified: false
     },
     reducers: {
         toggleProfileNav: (state, action) => {
@@ -28,10 +29,13 @@ const switchSlice = createSlice({
         },
         toggleProfileEdit: (state, action) => {
             state.isProfileEdit = action.payload
+        },
+        setIsEmailVerified: (state, action) => {
+            state.isEmailVerified = action.payload
         }
 
     }
 })
 
-export const { toggleProfileNav, toggleMobileOptions, toggleSignUp, toggleConnectionDetail, setLoader, toggleProfileEdit } = switchSlice.actions
+export const { toggleProfileNav, toggleMobileOptions, toggleSignUp, toggleConnectionDetail, setLoader, toggleProfileEdit, setIsEmailVerified } = switchSlice.actions
 export default switchSlice.reducer

@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import UniversalButton from "./UniversalButton"
-import { setLoader, toggleSignUp } from "../config/switchSlice"
+import { setIsEmailVerified, setLoader, toggleSignUp } from "../config/switchSlice"
 import { useState } from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { addUser } from "../config/userSlice"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
@@ -207,6 +207,11 @@ const Login = () => {
                 {`${isSignup ? "Sign up" : "Login"}`}
               </button>
             </div>
+            {!isSignup && <div onClick={() => dispatch(setIsEmailVerified(false))}>
+              <Link to={"/forgot/password"}>
+                <p className="underline font-semibold hover:text-blue-900">Forgot Password?</p>
+              </Link>
+            </div>}
             <div className="md:hidden mb-2">
               <p>{!isSignup ? "Not Registered yet!" : "Already a user!"} <span className="underline underline-offset-1 font-bold" onClick={() => dispatch(toggleSignUp(!isSignup))}>{!isSignup ? "Sign Up here" : "Login here"}</span></p>
             </div>

@@ -7,6 +7,7 @@ import Messages from "../components/Messages"
 import Feed from "../components/Feed"
 import HeaderElement from "../components/HeaderElement"
 import Login from "../components/Login"
+import ForgotPassword from "../components/ForgotPassword"
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
           <Route path="/connections" element={<Connections />}></Route>
           <Route path="/messages" element={<Messages />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/forgot/password" element={<ForgotPassword />}></Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 
