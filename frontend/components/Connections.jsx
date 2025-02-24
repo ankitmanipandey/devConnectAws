@@ -6,7 +6,7 @@ import { addConnections } from '../config/connectionSlice'
 import { setLoader } from '../config/switchSlice'
 import { toast } from "react-toastify"
 import Loader from './Loader'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function Connections() {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export default function Connections() {
   const fetchConnections = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.get(`${BASE_URL}/user/connections`, { withCredentials: true });
+      const res = await axios.get(`${BACKEND_URL}/user/connections`, { withCredentials: true });
       dispatch(addConnections(res?.data?.finalData));
       dispatch(setLoader(false))
     } catch (error) {

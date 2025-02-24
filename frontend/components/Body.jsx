@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { addUser } from "../config/userSlice"
 import { setIsEmailVerified } from '../config/switchSlice'
-import { BACKGROUND_IMAGE, BASE_URL } from "../hardcoded/constants"
+import { BACKGROUND_IMAGE, BACKEND_URL } from "../hardcoded/constants"
 
 const Body = () => {
     const dispatch = useDispatch()
@@ -14,7 +14,7 @@ const Body = () => {
 
     const fetchUserData = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/profile/view`,
+            const res = await axios.get(`${BACKEND_URL}/profile/view`,
                 { withCredentials: true })
             dispatch(addUser(res.data))
         }

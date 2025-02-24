@@ -6,7 +6,7 @@ import { addRequests } from '../config/requestSlice'
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
 import { toast } from 'react-toastify'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function Requests() {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ export default function Requests() {
   const handleRequest = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.get(`${BASE_URL}/user/pending/requests`, { withCredentials: true })
+      const res = await axios.get(`${BACKEND_URL}/user/pending/requests`, { withCredentials: true })
       dispatch(addRequests(res?.data?.connectionRequests))
       dispatch(setLoader(false))
     }

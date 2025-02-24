@@ -6,7 +6,7 @@ import { addUser } from '../config/userSlice'
 import { setLoader, toggleProfileEdit } from '../config/switchSlice'
 import Loader from './Loader'
 import { toast } from 'react-toastify'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function Profile() {
   const loggedInUser = useSelector(store => store.user)
@@ -24,7 +24,7 @@ export default function Profile() {
 
     try {
       dispatch(setLoader(true))
-      const user = await axios.patch(`${BASE_URL}/profile/edit`, {
+      const user = await axios.patch(`${BACKEND_URL}/profile/edit`, {
         name, about, skills, password, ...(photoUrl && { photoUrl })
       }, { withCredentials: true })
       dispatch(addUser(user?.data?.data))

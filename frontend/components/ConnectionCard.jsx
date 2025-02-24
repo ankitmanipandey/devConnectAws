@@ -6,7 +6,7 @@ import ConnectionDetailCard from './ConnectionDetailCard'
 import { toast } from 'react-toastify'
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function ConnectionCard({ connection }) {
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ export default function ConnectionCard({ connection }) {
     const handleRemove = async () => {
         try {
             dispatch(setLoader(true))
-            const res = await axios.delete(`${BASE_URL}/user/remove/connection/${connection?._id}`, { withCredentials: true })
+            const res = await axios.delete(`${BACKEND_URL}/user/remove/connection/${connection?._id}`, { withCredentials: true })
             dispatch(updateConnections(connection?._id))
             dispatch(setLoader(false))
             toast.success("Connection removed successfully")

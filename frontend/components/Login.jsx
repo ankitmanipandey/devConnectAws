@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { addUser } from "../config/userSlice"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
-import { BASE_URL, CLOUDINARY_URL, DEFAULT_PHOTOURL } from "../hardcoded/constants"
+import { BACKEND_URL, CLOUDINARY_URL, DEFAULT_PHOTOURL } from "../hardcoded/constants"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -49,7 +49,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.post(`${BASE_URL}/login`, {
+      const res = await axios.post(`${BACKEND_URL}/login`, {
         emailId, password
       }, { withCredentials: true })
 
@@ -70,7 +70,7 @@ const Login = () => {
   const handleSignUp = async () => {
     try {
       dispatch(setLoader(true))
-      const res = await axios.post(`${BASE_URL}/signup`, {
+      const res = await axios.post(`${BACKEND_URL}/signup`, {
         name, emailId, password, skills, ...(photoUrl && { photoUrl }), about
       }, { withCredentials: true })
       if (res.status === 200) {

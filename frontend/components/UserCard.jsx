@@ -5,7 +5,7 @@ import { updateFeed } from '../config/feedSlice'
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
 import { toast } from 'react-toastify'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function UserCard({ userName, about, photoUrl, userId }) {
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ export default function UserCard({ userName, about, photoUrl, userId }) {
     const handleIgnore = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post(`${BASE_URL}/request/send/ignored/${userId}`, {}, { withCredentials: true })
+            await axios.post(`${BACKEND_URL}/request/send/ignored/${userId}`, {}, { withCredentials: true })
             dispatch(updateFeed(userId))
             dispatch(setLoader(false))
         }
@@ -25,7 +25,7 @@ export default function UserCard({ userName, about, photoUrl, userId }) {
     const handleInterested = async () => {
         try {
             dispatch(setLoader(true))
-            await axios.post(`${BASE_URL}/request/send/interested/${userId}`, {}, { withCredentials: true })
+            await axios.post(`${BACKEND_URL}/request/send/interested/${userId}`, {}, { withCredentials: true })
             dispatch(updateFeed(userId))
             dispatch(setLoader(false))
         }

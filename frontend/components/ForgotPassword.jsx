@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import { BASE_URL } from "../hardcoded/constants"
+import { BACKEND_URL } from "../hardcoded/constants"
 import { toast } from "react-toastify"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,7 +19,7 @@ export default function ForgotPassword() {
     const handleVerifyBtn = async () => {
         try {
             dispatch(setLoader(true))
-            const res = await axios.post(`${BASE_URL}/verify/user`, {
+            const res = await axios.post(`${BACKEND_URL}/verify/user`, {
                 emailId
             }, { withCredentials: true })
             dispatch(setLoader(false))
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
             dispatch(setLoader(true))
             const params = new URLSearchParams(location.search)
             const token = params.get("token")
-            const res = await axios.post(`${BASE_URL}/reset/password?token=${token}`, {
+            const res = await axios.post(`${BACKEND_URL}/reset/password?token=${token}`, {
                 password
             }, { withCredentials: true })
             

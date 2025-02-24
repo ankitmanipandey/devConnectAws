@@ -6,7 +6,7 @@ import { addFeed } from '../config/feedSlice'
 import { toast } from "react-toastify"
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
-import { BASE_URL } from '../hardcoded/constants'
+import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function Feed() {
   const dispatch = useDispatch()
@@ -16,7 +16,7 @@ export default function Feed() {
   const handleFeed = async () => {
     dispatch(setLoader(true))
     try {
-      const res = await axios.get(`${BASE_URL}/user/feed`, { withCredentials: true })
+      const res = await axios.get(`${BACKEND_URL}/user/feed`, { withCredentials: true })
       dispatch(addFeed(res?.data))
       dispatch(setLoader(false))
     }
