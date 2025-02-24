@@ -31,6 +31,7 @@ export default function Feed() {
   }, [])
 
   if (!feedUser) return
+  
 
   return loader ? <Loader /> : (
     <div className='w-full min-h-screen fixed flex justify-center items-center '>
