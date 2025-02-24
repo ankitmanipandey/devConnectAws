@@ -30,8 +30,12 @@ export default function Feed() {
     handleFeed()
   }, [])
 
-  if (!feedUser) return
-  
+  if (!feedUser || feedUser.length === 0)
+    return (
+      <p className='text-2xl md:text-4xl text-white text-center' >
+        No Feed Available
+      </p>)
+
 
   return loader ? <Loader /> : (
     <div className='w-full min-h-screen fixed flex justify-center items-center '>

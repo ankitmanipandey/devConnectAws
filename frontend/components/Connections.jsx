@@ -28,7 +28,11 @@ export default function Connections() {
     fetchConnections()
   }, [])
 
-  if (!connections) return
+  if (!connections || connections.length === 0)
+    return (
+      <p className='text-2xl md:text-4xl text-white text-center' >
+        No Connections Available
+      </p>)
 
   return loader ? <Loader /> : (
     <div className='w-full min-h-screen fixed flex flex-col mt-10 items-center gap-3'>
