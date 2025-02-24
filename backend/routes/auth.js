@@ -30,11 +30,11 @@ authRouter.post('/signup', async (req, res) => {
         })
         const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
         res.cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-            path: "/"
-        })
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Only secure in production (requires HTTPS)
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Required for cross-origin requests
+        path: "/"
+    });
 
         return res.status(200).send(user)
     }
@@ -56,11 +56,11 @@ authRouter.post('/login', async (req, res) => {
         if (isPasswordValid) {
             const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
             res.cookie("token", token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-                path: "/"
-            })
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // Only secure in production (requires HTTPS)
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Required for cross-origin requests
+            path: "/"
+        });
             return res.send(user)
         }
         else {
@@ -84,7 +84,7 @@ authRouter.post('/logout', (req, res) => {
         )
         res.clearCookie("token", {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== "development",
+            secure: false,
             sameSite: "none",
             path: "/"
         });
