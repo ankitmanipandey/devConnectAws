@@ -16,7 +16,7 @@ const port = process.env.PORT || 1111
 
 
 app.use(cors({
-    origin: "http://13.168.178.101",
+    origin: FRONTEND_URL,
     credentials: true,
 }))
 app.use(express.json())
