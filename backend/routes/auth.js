@@ -32,7 +32,7 @@ authRouter.post('/signup', async (req, res) => {
         const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
         res.cookie("token", token, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "none",
             path: "/"
         })
@@ -58,7 +58,7 @@ authRouter.post('/login', async (req, res) => {
             const token = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "7d" })
             res.cookie("token", token, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 sameSite: "none",
                 path: "/"
             })
@@ -85,7 +85,7 @@ authRouter.post('/logout', (req, res) => {
         )
         res.clearCookie("token", {
             httpOnly: true,
-            secure: process.env.NODE_ENV !== "development",
+            secure: false,
             sameSite: "none",
             path: "/"
         });
