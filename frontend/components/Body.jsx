@@ -32,7 +32,7 @@ const Body = () => {
     }
     useEffect(() => {
         fetchUserData()
-    }, [])
+    }, [location])
 
     return (
         <div>
