@@ -15,15 +15,20 @@ const Body = () => {
     const fetchUserData = async () => {
         try {
             const res = await axios.get(`${BACKEND_URL}/profile/view`,
-                                        {withCredentials:true})
+                { withCredentials: true })
             dispatch(addUser(res.data))
         }
         catch (err) {
             const params = new URLSearchParams(location.search)
             const token = params.get("token")
             if (err?.response?.status === 401 && location.pathname === "/forgot/password") {
-                navigate(token ? `/forgot/password?token=${token}` : "/forgot/password")
-                dispatch(setIsEmailVerified(true))
+                if (token) {
+                    navigate(`/forgot/password?token=${token}`)
+                    dispatch(setIsEmailVerified(true))
+                }
+                else {
+                    navigate("/forgot/password")
+                }
             }
             else {
                 navigate("/")
