@@ -21,7 +21,7 @@ const Body = () => {
         catch (err) {
             const params = new URLSearchParams(location.search)
             const token = params.get("token")
-            if (err.response.status === 401 && location.pathname === "/forgot/password") {
+            if (err?.response?.status === 401 && location.pathname === "/forgot/password") {
                 navigate(token ? `/forgot/password?token=${token}` : "/forgot/password")
                 dispatch(setIsEmailVerified(true))
             }
