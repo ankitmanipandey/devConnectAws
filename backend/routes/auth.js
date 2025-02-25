@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const authRouter = express.Router()
 const sendMail = require('../middlewares/nodemailer.js');
 const { FRONTEND_URL } = require('../utils/constants.js');
+require('dotenv').config()
 
 //creating the data / signup
 
