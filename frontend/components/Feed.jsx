@@ -17,6 +17,7 @@ export default function Feed() {
     dispatch(setLoader(true))
     try {
       const res = await axios.get(`${BACKEND_URL}/user/feed`, { withCredentials: true })
+      console.log(res);
       dispatch(addFeed(res?.data))
       dispatch(setLoader(false))
     }
@@ -39,7 +40,7 @@ export default function Feed() {
 
   return loader ? <Loader /> : (
     <div className='w-full min-h-screen fixed flex justify-center items-center '>
-      {feedUser.map((user) => { return < UserCard userId={user?._id} key={user?._id} userName={user?.name} about={user?.about} photoUrl={user?.photoUrl || "https://t4.ftcdn.net/jpg/01/19/32/93/240_F_119329387_sUTbUdeyhk0nuhNw5WaFvOyQFmxeppjX.jpg"} /> })}
+      {feedUser?.map((user) => { return < UserCard userId={user?._id} key={user?._id} userName={user?.name} about={user?.about} photoUrl={user?.photoUrl || "https://t4.ftcdn.net/jpg/01/19/32/93/240_F_119329387_sUTbUdeyhk0nuhNw5WaFvOyQFmxeppjX.jpg"} /> })}
     </div>
   )
 }
