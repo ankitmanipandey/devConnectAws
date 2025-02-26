@@ -53,7 +53,7 @@ const Login = () => {
         emailId, password
       }, {
         headers: {
-          "Authorization": `Bearer YOUR_ACCESS_TOKEN`, // Ensure correct token
+          "Authorization": `Bearer YOUR_ACCESS_TOKEN`,
           "Content-Type": "application/json"
         }
         , withCredentials: true
