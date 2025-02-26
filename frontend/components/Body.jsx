@@ -15,7 +15,12 @@ const Body = () => {
     const fetchUserData = async () => {
         try {
             const res = await axios.get(`${BACKEND_URL}/profile/view`,
-                { withCredentials: true })
+                {
+                    headers: {
+                        "Authorization": `Bearer YOUR_ACCESS_TOKEN`, // Ensure correct token
+                        "Content-Type": "application/json"
+                    }, withCredentials: true
+                })
             dispatch(addUser(res.data))
         }
         catch (err) {
