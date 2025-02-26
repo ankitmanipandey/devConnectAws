@@ -33,7 +33,7 @@ authRouter.post('/signup', async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: 'lax',
+            sameSite: 'Lax',
             path: "/"
         })
 
@@ -59,7 +59,7 @@ authRouter.post('/login', async (req, res) => {
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'lax',
+                sameSite: 'Lax',
                 path: "/"
             })
             return res.send(user)
@@ -81,7 +81,7 @@ authRouter.post('/logout', (req, res) => {
             {
                httpOnly: true,
                secure: true,
-               sameSite: 'lax',
+               sameSite: 'Lax',
                path: "/",
                expires: new Date(0)
             })
