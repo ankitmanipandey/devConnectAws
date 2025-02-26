@@ -16,10 +16,8 @@ const port = process.env.PORT || 1111
 
 
 app.use(cors({
-    origin: "http://13.60.201.81",  // Allow frontend
-    credentials: true,  // Allow cookies or authorization headers
-    methods: "GET, POST, PATCH, DELETE",
-    allowedHeaders: "Content-Type, Authorization"
+    origin: FRONTEND_URL,
+    credentials: true,
 }))
 app.use(express.json())
 app.use(cookieParser())

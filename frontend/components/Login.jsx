@@ -51,13 +51,7 @@ const Login = () => {
       dispatch(setLoader(true))
       const res = await axios.post(`${BACKEND_URL}/login`, {
         emailId, password
-      }, {
-        headers: {
-          "Authorization": `Bearer YOUR_ACCESS_TOKEN`,
-          "Content-Type": "application/json"
-        }
-        , withCredentials: true
-      })
+      }, { withCredentials: true })
 
       if (res.status === 200) {
         navigate("/feed")
