@@ -36,8 +36,8 @@ export default function UserCard({ userName, about, photoUrl, userId }) {
     }
     return loader ? <Loader /> : (
         <div className='h-100 w-62 fixed bg-[#00092d] top-30 rounded-lg flex flex-col'>
-            <div className='bg-white h-[60%] rounded-lg items-center'>
-                <img src={photoUrl} alt="" className='object-center h-full w-full rounded-t-lg' />
+            <div className='h-[60%] rounded-lg items-center bg-transparent'>
+                <img src={photoUrl} alt="user-photo" className='object-center h-full w-full rounded-t-lg' />
             </div>
             <div className='h-[50%] flex flex-col items-center gap-3 mt-2'>
                 <p className='text-[#FEFFFE] font-medium text-xl'>{userName}</p>
