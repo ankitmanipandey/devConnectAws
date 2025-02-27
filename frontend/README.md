@@ -15,6 +15,6 @@ the State variable then only user would be able to press the sign up button.
 
 
 
-5.loader,responsive,toast
+5.I was not getting cookie on the browser because i was not on https , so i changed secure:false and sameSite:"Lax"
 
 

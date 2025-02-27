@@ -30,7 +30,7 @@ export default function Connections() {
 
   if (!connections || connections.length === 0)
     return (
-      <p className='text-2xl md:text-4xl text-white text-center' >
+      <p className='text-2xl md:text-4xl text-[#FEFFFE] text-center' >
         No Connections Available
       </p>)
 
