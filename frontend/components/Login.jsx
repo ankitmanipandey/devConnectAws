@@ -56,8 +56,8 @@ const Login = () => {
       if (res.status === 200) {
         navigate("/feed")
         dispatch(addUser(res.data))
-        dispatch(setLoader(false))
         toast.success("Logged In Successfully")
+        dispatch(setLoader(false))
       }
 
     }

@@ -17,7 +17,6 @@ export default function Feed() {
     dispatch(setLoader(true))
     try {
       const res = await axios.get(`${BACKEND_URL}/user/feed`, { withCredentials: true })
-      console.log(res);
       dispatch(addFeed(res?.data))
       dispatch(setLoader(false))
     }
