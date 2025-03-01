@@ -4,7 +4,7 @@ const userAuth = require('../middlewares/userAuth');
 const paymentRouter = express.Router()
 require('dotenv').config()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-const PaymentModel = require('../model/paymentDeta')
+const PaymentModel = require('../model/paymentData')
 
 
 
@@ -54,24 +54,12 @@ paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async 
     if (endpointSecret) {
         const signature = req.headers['stripe-signature'];
         try {
-            if (signature) {
-                console.log("signature is not present",signature)
-            }
-            if (endpointSecret) {
-                console.log("endpointSecret is not present",endpointSecret)
-            }
-            if (req.body) {
-                console.log("req.body is not empty",req.body)
-            }
             console.log("inside the signature try")
-            event = stripe.webhooks.constructEvent(
-                req.body,
-                signature,
-                endpointSecret
-            );
+            event = stripe.webhooks.constructEvent(req.body, signature, endpointSecret);
             console.log("after the event")
         }
         catch (err) {
+            console.error("webhook sign verification failed" + err.message)
             return res.status(400).send(err.message)
         }
     }
