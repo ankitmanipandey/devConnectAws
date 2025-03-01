@@ -14,12 +14,11 @@ require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 1111
 
-
+app.use('/', paymentWebhookRouter)
 app.use(cors({
     origin: FRONTEND_URL,
     credentials: true,
 }))
-app.use('/', paymentWebhookRouter)
 app.use(express.json())
 app.use(cookieParser())
 

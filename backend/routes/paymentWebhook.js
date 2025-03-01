@@ -6,7 +6,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const PaymentModel = require('../model/paymentData')
 
 
-paymentWebhookRouter.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     let event = req.body;
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     if (endpointSecret) {
