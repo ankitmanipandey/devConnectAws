@@ -8,6 +8,7 @@ const userRouter = require('../routes/user.js')
 const cors = require('cors')
 const { FRONTEND_URL } = require('../utils/constants.js')
 const paymentRouter = require('../routes/payment.js')
+const paymentWebhookRouter = require('../routes/paymentWebhook.js')
 require('dotenv').config()
 
 const app = express()
@@ -18,7 +19,7 @@ app.use(cors({
     origin: FRONTEND_URL,
     credentials: true,
 }))
-app.use('/', paymentRouter)
+app.use('/', paymentWebhookRouter)
 app.use(express.json())
 app.use(cookieParser())
 
@@ -26,6 +27,7 @@ app.use('/', authRouter)
 app.use('/', profileRouter)
 app.use('/', requestRouter)
 app.use('/', userRouter)
+app.use('/', paymentRouter)
 
 //Database and server call
 
