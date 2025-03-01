@@ -1,7 +1,7 @@
 const express = require('express')
 const Stripe = require("stripe");
 const paymentRouter = express.Router()
-const stripe = Stripe("sk_test_51QxR7KBuKBPVxrjqu2Lt5Nb7S0p5fm9ATNinFnAhPx1K5GpIbf7DIX8meGDiNeo1FT2CHKevLwIAWxgOUFGvxjsC00q9u5pZcQ");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 
 

@@ -3,7 +3,7 @@ import axios from "axios"
 import { loadStripe } from '@stripe/stripe-js'
 import { BACKEND_URL } from '../hardcoded/constants'
 export default function PaymentUI() {
-    const stripePromise = loadStripe("pk_test_51QxR7KBuKBPVxrjqDOBKPKFnKFirJi4Fk5PuwOcTdy0gobhzH7xLWzyK6zwxyIqKMtl8ddQerEM9zT9NtlSnLdod00ZlJM9ZyV");
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
     const handleBuyBtn = async (type) => {
         try {
             const { data } = await axios.post(`${BACKEND_URL}/create-checkout-session/${type}`,
