@@ -48,11 +48,9 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
 });
 
 
-paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
     let event = req.body;
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    console.log(process.env.STRIPE_WEBHOOK_SECRET)
-    console.log(endpointSecret)
     if (endpointSecret) {
         const signature = req.headers['stripe-signature'];
         try {
@@ -64,7 +62,7 @@ paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async 
             );
         }
         catch (err) {
-            return res.status(400).json({ success: false, message: "Webhook Verification Failed." })
+            return res.status(400).send(err.message)
         }
     }
     console.log("no error in signature")
@@ -85,7 +83,7 @@ paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async 
             return res.status(200).json({ success: true, message: "Payment processed successfully" })
         }
         catch (err) {
-            return res.status(400).json({ success: false, message: "Transaction failed" })
+            return res.status(400).json({ success: false, message: "Transaction failed" + err.message })
         }
     }
     return res.status(200).json({ received: true });
