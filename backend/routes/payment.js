@@ -2,6 +2,7 @@ const express = require('express')
 const Stripe = require("stripe");
 const userAuth = require('../middlewares/userAuth');
 const paymentRouter = express.Router()
+require('dotenv').config()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const PaymentModel = require('../model/paymentDeta')
 
@@ -60,7 +61,7 @@ paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async
             );
         }
         catch (err) {
-           return res.status(400).json({ success: false, message: "Webhook Verification Failed." })
+            return res.status(400).json({ success: false, message: "Webhook Verification Failed." })
         }
     }
     const session = event.data.object //this we get from the object 'event'
