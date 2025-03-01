@@ -54,14 +54,14 @@ paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async 
     if (endpointSecret) {
         const signature = req.headers['stripe-signature'];
         try {
-            if (!signature) {
-                console.log("signature is not present")
+            if (signature) {
+                console.log("signature is not present",signature)
             }
-            if (!endpointSecret) {
-                console.log("endpointSecret is not present")
+            if (endpointSecret) {
+                console.log("endpointSecret is not present",endpointSecret)
             }
             if (req.body) {
-                console.log("req.body is not empty")
+                console.log("req.body is not empty",req.body)
             }
             console.log("inside the signature try")
             event = stripe.webhooks.constructEvent(
