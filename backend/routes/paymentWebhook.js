@@ -23,28 +23,28 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
             return res.status(400).send(err.message)
         }
     }
-    // console.log("no error in signature")
-    // const session = event.data.object //this we get from the object 'event'
-    // console.log(event.type)
-    // console.log(typeof (event.type) === string)
-    // if (event.type === 'checkout.session.completed') {
-    //     try {
-    //         console.log("checkout started")
-    //         const payment = await PaymentModel.create({
-    //             orderId: session.id,
-    //             userName: session.metadata.userName,
-    //             userId: session.metadata.userId,
-    //             membershipType: session.metadata.membershipType,
-    //             price: (session.amount_total) / 100
-    //         })
-    //         console.log("data saved in database")
-    //         return res.status(200).json({ success: true, message: "Payment processed successfully" })
-    //     }
-    //     catch (err) {
-    //         return res.status(400).json({ success: false, message: "Transaction failed" + err.message })
-    //     }
-    // }
-    // return res.status(200).json({ received: true });
+    console.log("no error in signature")
+    const session = event.data.object //this we get from the object 'event'
+    console.log(event.type)
+    console.log(typeof (event.type) === string)
+    if (event.type === 'checkout.session.completed') {
+        try {
+            console.log("checkout started")
+            const payment = await PaymentModel.create({
+                orderId: session.id,
+                userName: session.metadata.userName,
+                userId: session.metadata.userId,
+                membershipType: session.metadata.membershipType,
+                price: (session.amount_total) / 100
+            })
+            console.log("data saved in database")
+            return res.status(200).json({ success: true, message: "Payment processed successfully" })
+        }
+        catch (err) {
+            return res.status(400).json({ success: false, message: "Transaction failed" + err.message })
+        }
+    }
+    return res.status(200).json({ received: true });
 });
 
 module.exports = paymentWebhookRouter
