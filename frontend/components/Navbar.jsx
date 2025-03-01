@@ -96,6 +96,7 @@ const Navbar = () => {
                     <p className="">{user?.name}</p>
                     <img src={user?.photoUrl} alt="" className="rounded-full h-10 w-10 object-cover cursor-pointer" />
                     <div className={`bg-[#00092d] top-13 text-white h-20 fixed right-0 p-2 z-20 rounded-bl-sm hidden md:block transition-all duration-200 ease-in-out ${isProfileNav ? "translate-x-0" : "translate-x-full"}`}>
+                        <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={() => navigate("/premium")}>Premium</li>
                         <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={() => navigate("/profile")}>Profile</li>
                         <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={handleSignOut}>SignOut</li>
                     </div>
