@@ -60,6 +60,7 @@ paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async
                 signature,
                 endpointSecret
             );
+            console.log("after the event")
         }
         catch (err) {
             return res.status(400).send(err.message)
