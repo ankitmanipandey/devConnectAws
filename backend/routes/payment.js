@@ -1,13 +1,16 @@
 const express = require('express')
 const Stripe = require("stripe");
+const userAuth = require('../middlewares/userAuth');
 const paymentRouter = express.Router()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const PaymentModel = require('../model/paymentDeta')
 
 
 
-paymentRouter.post("/create-checkout-session/:type", async (req, res) => {
+paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) => {
     try {
         const planType = req.params.type.toString()
+        const user = req.user
         const PRODUCT = {
             name: planType === 'silver' ? "Silver Premium Membership" : "Gold Premium Membership",
             price: planType === 'silver' ? 500 : 1000,
@@ -29,18 +32,54 @@ paymentRouter.post("/create-checkout-session/:type", async (req, res) => {
                 },
             ],
             metadata: {
-                note: `User is purchasing ${PRODUCT.name}`,
-                userId: "12345",
+                userName: user.name.toString(),
+                userId: user._id.toString(),
+                membershipType: planType,
                 additional_info: "Special discount applied"
             },
             success_url: "http://localhost:5173/premium",
             cancel_url: "http://localhost:5173/premium",
         });
-        console.log(session)
         res.json({ id: session.id });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+});
+
+
+paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+    let event = req.body;
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    if (endpointSecret) {
+        const signature = req.headers['stripe-signature'];
+        try {
+            event = stripe.webhooks.constructEvent(
+                req.body,
+                signature,
+                endpointSecret
+            );
+        }
+        catch (err) {
+           return res.status(400).json({ success: false, message: "Webhook Verification Failed." })
+        }
+    }
+    const session = event.data.object //this we get from the object 'event'
+    if (event.type === 'checkout.session.completed') {
+        try {
+            const payment = await PaymentModel.create({
+                orderId: session.id,
+                userName: session.metadata.userName,
+                userId: session.metadata.userId,
+                membershipType: session.metadata.membershipType,
+                price: (session.amount_total) / 100
+            })
+            return res.status(200).json({ success: true, message: "Payment processed successfully" })
+        }
+        catch (err) {
+            return res.status(400).json({ success: false, message: "Transaction failed" })
+        }
+    }
+    return res.status(200).json({ received: true });
 });
 
 
