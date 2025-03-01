@@ -48,7 +48,7 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
 });
 
 
-paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     let event = req.body;
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     console.log(process.env.STRIPE_WEBHOOK_SECRET)
