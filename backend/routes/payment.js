@@ -48,12 +48,21 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
 });
 
 
-paymentRouter.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+paymentRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     let event = req.body;
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     if (endpointSecret) {
         const signature = req.headers['stripe-signature'];
         try {
+            if (!signature) {
+                console.log("signature is not present")
+            }
+            if (!endpointSecret) {
+                console.log("endpointSecret is not present")
+            }
+            if (req.body) {
+                console.log("req.body is not empty")
+            }
             console.log("inside the signature try")
             event = stripe.webhooks.constructEvent(
                 req.body,
