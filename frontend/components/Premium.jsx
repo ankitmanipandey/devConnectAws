@@ -10,7 +10,7 @@ export default function PaymentUI() {
                 {},
                 { withCredentials: true });
             const stripe = await stripePromise;
-            stripe.redirectToCheckout({ sessionId: data.id });
+            stripe.redirectToCheckout({ sessionId: data?.id });
         } catch (error) {
             console.error("Payment Error:", error);
         }

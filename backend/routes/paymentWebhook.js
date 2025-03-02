@@ -8,12 +8,10 @@ const PaymentModel = require('../model/paymentData')
 
 paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     let event = req.body;
-    console.log(req.body.toString())
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
     if (endpointSecret) {
         const signature = req.headers['stripe-signature'];
         try {
-
             console.log("inside the signature try")
             event = stripe.webhooks.constructEvent(req.body, signature, endpointSecret);
             console.log("after the event")
