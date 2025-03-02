@@ -30,7 +30,7 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
                 membershipType: session.metadata.membershipType,
                 price: session.amount_total / 100
             })
-            const user = await User.findOne({ _id: userId })
+            const user = await User.findOne({ _id: session.metadata.userId })
             console.log(user)
         }
         catch (err) {
