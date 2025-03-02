@@ -26,13 +26,13 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
     if (event.type === 'checkout.session.completed') {
         try {
             console.log("inside the db call")
-            console.log(session.id,session.metadata.userName,session.metadata.userId,session.membershipType,session.amount_total)
+            console.log(session.id, session.metadata.userName, session.metadata.userId, session.metadata.membershipType, session.amount_total)
             const payment = await PaymentModel.create({
                 orderId: session.id,
                 userName: session.metadata.userName,
                 userId: session.metadata.userId,
                 membershipType: session.metadata.membershipType,
-                price: (session.amount_total) / 100
+                price: ((session.amount_total) / 100)
             })
             console.log("data store successfully")
             return res.status(200).json({ success: true, message: "Payment processed successfully" })
