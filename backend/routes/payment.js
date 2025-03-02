@@ -40,10 +40,10 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
                 membershipType: planType,
                 additional_info: "Special discount applied"
             },
-            success_url: `${FRONTEND_URL}/premium`,
-            cancel_url: `${FRONTEND_URL}/premium`,
+            success_url: "http://13.61.147.114",
+            cancel_url: "http://13.61.147.114",
         });
-        console.log("afte session")
+        console.log("after session")
         return res.json({ id: session.id });
     } catch (error) {
         return res.status(500).json({ error: error.message });
