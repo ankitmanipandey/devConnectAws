@@ -23,7 +23,7 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
     const session = event.data.object //this we get from the object 'event'
     if (event.type === 'checkout.session.completed') {
         try {
-            const payment = await PaymentModel.create({
+            await PaymentModel.create({
                 orderId: session.id,
                 userName: session.metadata.userName,
                 userId: session.metadata.userId,
@@ -31,7 +31,9 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
                 price: session.amount_total / 100
             })
             const user = await User.findOne({ _id: session.metadata.userId })
-            console.log(user)
+            user.isPremium = true
+            user.membershipType = session.metadata.membershipType
+            await user.save()
         }
         catch (err) {
             return res.status(400).json({ success: false, message: "Transaction failed" })
