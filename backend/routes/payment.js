@@ -1,6 +1,7 @@
 const express = require('express')
 const Stripe = require("stripe");
 const userAuth = require('../middlewares/userAuth');
+const { FRONTEND_URL } = require('../utils/constants');
 const paymentRouter = express.Router()
 require('dotenv').config()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
@@ -37,8 +38,8 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
                 membershipType: planType,
                 additional_info: "Special discount applied"
             },
-            success_url: "http://localhost:5173/premium",
-            cancel_url: "http://localhost:5173/premium",
+            success_url: `${FRONTEND_URL}/premium`,
+            cancel_url: `${FRONTEND_URL}/premium`,
         });
         return res.json({ id: session.id });
     } catch (error) {
