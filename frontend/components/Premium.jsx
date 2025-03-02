@@ -5,7 +5,7 @@ import { BACKEND_URL } from '../hardcoded/constants'
 import { useSelector } from 'react-redux';
 export default function PaymentUI() {
     const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-    const user = useSelector(store => store.user)
+    const user = useSelector(store => store?.user)
     const handleBuyBtn = async (type) => {
         try {
             const res = await axios.post(`${BACKEND_URL}/create-checkout-session/${type}`,
@@ -18,8 +18,8 @@ export default function PaymentUI() {
             console.error("Payment Error:", error);
         }
     }
-    return user.isPremium
-        ? <div className='text-center m-2 text-5xl text-[#FEFFFE]'>{`You are already our ${user.membershipType} Member`}</div>
+    return user?.isPremium
+        ? <div className='text-center m-2 text-5xl text-[#FEFFFE]'>{`You are already our ${user?.membershipType} Member`}</div>
         : (
             <div className='flex justify-center items-center md:top-20 md:relative'>
                 <div className='flex flex-col md:flex-row gap-2 md:gap-10 py-2 items-center justify-center'>
