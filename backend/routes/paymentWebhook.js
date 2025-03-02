@@ -25,8 +25,7 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
     const session = event.data.object //this we get from the object 'event'
     if (event.type === 'checkout.session.completed') {
         try {
-            console.log("inside the db call")
-            console.log(session.id, session.metadata.userName, session.metadata.userId, session.metadata.membershipType, session.amount_total/100)
+            console.log("going to enter in the db")
             const payment = await PaymentModel.create({
                 orderId: session.id,
                 userName: session.metadata.userName,
