@@ -32,10 +32,9 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
                 userName: session.metadata.userName,
                 userId: session.metadata.userId,
                 membershipType: session.metadata.membershipType,
-                price: ((session.amount_total) / 100)
+                // price: session.amount_total / 100
             })
             console.log("data store successfully")
-            return res.status(200).json({ success: true, message: "Payment processed successfully" })
         }
         catch (err) {
             return res.status(400).json({ success: false, message: "Transaction failed" + err.message })
