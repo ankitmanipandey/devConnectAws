@@ -10,7 +10,7 @@ const profileRouter = express.Router()
 profileRouter.get('/profile/view', userAuth, (req, res) => {
     try {
         const { user } = req
-        const userCopy = JSON.parse(JSON.stringify(user))
+        const userCopy = JSON.parse(JSON.stringify(user))//this is done to avoid sending the password on the frontend
         delete userCopy.password
         return res.send(userCopy)
     }

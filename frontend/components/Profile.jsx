@@ -19,6 +19,8 @@ export default function Profile() {
   const [isUploading, setIsUploading] = useState(false)
   const { loader } = useSelector(store => store?.switch)
   const { isProfileEdit } = useSelector(store => store?.switch)
+  const user = useSelector(store => store.user)
+  console.log(user)
 
   const handleProfileEdit = async () => {
 
@@ -58,7 +60,10 @@ export default function Profile() {
       <div className='hidden bg-[#00092d] opacity-90 h-[75%] p-2 w-72 m-2 md:w-92 md:flex flex-col rounded-lg'>
         <div className='h-[50%] flex flex-col items-center justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='rounded-full size-32 m-2 object-center' />
-          <h2 className='text-[#FEFFFE] font-semibold text-2xl'>{name}</h2>
+          <div className='flex justify-center items-center gap-3'>
+            <h2 className='text-[#FEFFFE] font-semibold text-2xl'>{name}</h2>
+            {user?.isPremium && <i class="fa-regular fa-circle-check text-xl text-[#FEFFFE]"></i>}
+          </div>
         </div>
         <div className=' h-[50%] flex flex-col text-[#FEFFFE]'>
           <div className='flex flex-col gap-1 items-start p-4 flex-wrap '>

@@ -36,6 +36,7 @@ export default function ProfileEditCard(props) {
         <div className='bg-[#00092d] opacity-90 h-108 w-72 mt-5 md:mt-1 m-2 md:w-92  md:h-108 flex flex-col rounded-lg items-center gap-4 justify-center'>
 
             <h2 className='text-[#FEFFFE] font-semibold text-2xl hidden md:block'>Edit Your Profile Here</h2>
+            {user?.isPremium && <i className="fa-regular fa-circle-check text-xl text-[#FEFFFE]"></i>}
             <div className="flex items-center border-1 gap-1 px-1 bg-gray-700 rounded-lg justify-center w-[70%]">
                 <i className="fa-solid fa-user"></i>
                 <input

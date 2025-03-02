@@ -7,7 +7,7 @@ import Loader from './Loader'
 import { toast } from 'react-toastify'
 import { BACKEND_URL } from '../hardcoded/constants'
 
-export default function UserCard({ userName, about, photoUrl, userId }) {
+export default function UserCard({ userName, about, photoUrl, userId, isPremium }) {
     const dispatch = useDispatch()
     const { loader } = useSelector(store => store?.switch)
     const handleIgnore = async () => {
@@ -40,7 +40,10 @@ export default function UserCard({ userName, about, photoUrl, userId }) {
                 <img src={photoUrl} alt="user-photo" className='object-center h-full w-full rounded-t-lg' />
             </div>
             <div className='h-[50%] flex flex-col items-center gap-3 mt-2'>
-                <p className='text-[#FEFFFE] font-medium text-xl'>{userName}</p>
+                <div className='flex items-center gap-2 justify-center'>
+                    <p className='text-[#FEFFFE] font-medium text-xl'>{userName}</p>
+                    {isPremium && <i className="fa-regular fa-circle-check relative top-1 text-xl text-[#FEFFFE]"></i>}
+                </div>
                 <p className='text-[#FEFFFE] text-sm font-medium'>{about}</p>
                 <div className='flex justify-center gap-3 text-[#FEFFFE] mt-3 font-medium'>
                     <button className='py-2 px-2 bg-pink-500 rounded-lg cursor-pointer' onClick={handleIgnore}>Ignore</button>
