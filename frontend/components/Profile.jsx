@@ -20,7 +20,6 @@ export default function Profile() {
   const { loader } = useSelector(store => store?.switch)
   const { isProfileEdit } = useSelector(store => store?.switch)
   const user = useSelector(store => store.user)
-  console.log(user)
 
   const handleProfileEdit = async () => {
 
@@ -35,7 +34,7 @@ export default function Profile() {
     }
     catch (err) {
       dispatch(setLoader(false))
-      toast.error("Error in getting Profile")
+      toast.error(err.response.data)
     }
 
   }

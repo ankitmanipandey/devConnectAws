@@ -89,7 +89,9 @@ export default function ProfileEditCard(props) {
                 </input>
             </div>
             <div className='flex justify-center md:hidden'>
-                <button disabled={isUploading ? true : false} className={`text-lg ${isUploading ? "bg-gray-600" : "bg-pink-500"} py-2 px-6 text-[#FEFFFE] rounded-xl m-3 font-semibold cursor-pointer`} onClick={isProfileEdit ? () => { handleProfileEdit() } : () => { dispatch(toggleProfileEdit(!isProfileEdit)) }}>{isProfileEdit ? "Save" : "Edit"}</button>
+                <button disabled={isUploading ? true : false} className={`text-lg ${isUploading ? "bg-gray-600" : "bg-pink-500"} py-2 px-6 text-[#FEFFFE] rounded-xl m-3 font-semibold cursor-pointer`}
+                    onClick={isProfileEdit ? () => { handleProfileEdit() }
+                        : () => { dispatch(toggleProfileEdit(!isProfileEdit)) }}>{isProfileEdit ? "Save" : "Edit"}</button>
             </div>
 
         </div>
