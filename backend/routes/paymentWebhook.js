@@ -3,7 +3,8 @@ const Stripe = require("stripe");
 const paymentWebhookRouter = express.Router()
 require('dotenv').config()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-const PaymentModel = require('../model/paymentData')
+const PaymentModel = require('../model/paymentData');
+const User = require('../model/user');
 
 
 paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
@@ -25,10 +26,12 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
             const payment = await PaymentModel.create({
                 orderId: session.id,
                 userName: session.metadata.userName,
-                userId: session.metadata.userId.toString(),
+                userId: session.metadata.userId,
                 membershipType: session.metadata.membershipType,
                 price: session.amount_total / 100
             })
+            const user = await User.findOne({ _id: userId })
+            console.log(user)
         }
         catch (err) {
             return res.status(400).json({ success: false, message: "Transaction failed" })
