@@ -6,11 +6,12 @@ export default function PaymentUI() {
     const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
     const handleBuyBtn = async (type) => {
         try {
-            const { data } = await axios.post(`${BACKEND_URL}/create-checkout-session/${type}`,
+            const res = await axios.post(`${BACKEND_URL}/create-checkout-session/${type}`,
                 {},
                 { withCredentials: true });
             const stripe = await stripePromise;
-            stripe.redirectToCheckout({ sessionId: data?.id });
+            stripe.redirectToCheckout({ sessionId: res?.data?.id });
+            console.log(res)
         } catch (error) {
             console.error("Payment Error:", error);
         }

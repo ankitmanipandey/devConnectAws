@@ -39,7 +39,7 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
             return res.status(400).json({ success: false, message: "Transaction failed" })
         }
     }
-    return res.status(200).json({ success: true, message: "Payment Done Successfully" });
+    return res.status(200).json({ success: true, message: `Your are now ${session.metadata.membershipType} member` });
 });
 
 module.exports = paymentWebhookRouter
