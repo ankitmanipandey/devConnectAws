@@ -10,7 +10,6 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) => {
     try {
-        console.log("starting checkout")
         const planType = req.params.type.toString()
         const user = req.user
         const PRODUCT = {
@@ -18,7 +17,6 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
             price: planType === 'silver' ? 500 : 1000,
             currency: "INR",
         };
-        console.log("before Session")
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: "payment",
@@ -43,7 +41,6 @@ paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) 
             success_url: "http://13.61.147.114",
             cancel_url: "http://13.61.147.114",
         });
-        console.log("after session")
         return res.json({ id: session.id });
     } catch (error) {
         return res.status(500).json({ error: error.message });
