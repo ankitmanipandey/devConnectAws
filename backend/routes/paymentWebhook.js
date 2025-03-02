@@ -19,14 +19,13 @@ paymentWebhookRouter.post('/webhook', express.raw({ type: 'application/json' }),
             return res.status(400).send(err.message)
         }
     }
-    console.log(event.data.object)
     const session = event.data.object //this we get from the object 'event'
     if (event.type === 'checkout.session.completed') {
         try {
             const payment = await PaymentModel.create({
                 orderId: session.id,
                 userName: session.metadata.userName,
-                userId: session.metadata.userId,
+                userId: session.metadata.userId.toString(),
                 membershipType: session.metadata.membershipType,
                 price: session.amount_total / 100
             })

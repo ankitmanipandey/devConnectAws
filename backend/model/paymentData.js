@@ -12,6 +12,7 @@ const paymentSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Types.ObjectId,
         required: true,
+        ref: "User",
         unique: true
     },
     membershipType: {
