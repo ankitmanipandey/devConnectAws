@@ -13,7 +13,6 @@ export default function PaymentUI() {
                 { withCredentials: true });
             const stripe = await stripePromise;
             stripe.redirectToCheckout({ sessionId: res?.data?.id });
-            console.log(res)
         } catch (error) {
             console.error("Payment Error:", error);
         }

@@ -6,8 +6,6 @@ const paymentRouter = express.Router()
 require('dotenv').config()
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-
-
 paymentRouter.post("/create-checkout-session/:type", userAuth, async (req, res) => {
     try {
         const planType = req.params.type.toString()
