@@ -9,6 +9,8 @@ const cors = require('cors')
 const { FRONTEND_URL } = require('../utils/constants.js')
 const paymentRouter = require('../routes/payment.js')
 const paymentWebhookRouter = require('../routes/paymentWebhook.js')
+const { createServer } = require('http')
+const initializeSocket = require('../utils/socket.js')
 require('dotenv').config()
 
 const app = express()
@@ -30,10 +32,14 @@ app.use('/', paymentRouter)
 
 //Database and server call
 
+const server = createServer(app)
+initializeSocket(server)
+
+
 connectDB()
     .then(() => {
         console.log('Database connection established')
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log(`Connection Success at port ${port}`);
         })
     })

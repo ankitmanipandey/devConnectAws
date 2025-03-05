@@ -1,6 +1,6 @@
 export default function EmptyChat() {
     return (
-        <div className="flex flex-col justify-center items-center h-full text-white bg-[#081526]">
+        <div className="flex flex-col justify-center items-center h-full text-white">
             <img
                 src='logo.png'
                 alt="devConnect_Logo"

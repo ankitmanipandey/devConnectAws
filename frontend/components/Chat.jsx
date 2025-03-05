@@ -10,10 +10,11 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 export default function Messages() {
+  const user = useSelector(store => store.user)
   const connections = useSelector(store => store.connection)
-  const [targetUserId, setTargetUserId] = useState(null)
   const [userName, setUserName] = useState('')
   const [photoUrl, setPhotoUrl] = useState('')
+  const [selectedUser, setSelectedUser] = useState()
   const dispatch = useDispatch()
   const fetchConnections = async () => {
     try {
@@ -33,13 +34,18 @@ export default function Messages() {
 
   if (!connections) return
   return (
-    <div className='h-full flex overflow-hidden bg-gradient-to-b from-black opacity-70'>
-      <div className='h-full w-[25%] border-r border-white cursor-pointer p-1 bg-[#081526] overflow-y-auto scrollbar-hidden'>
-        {connections.map((connection) => { return <ChatList key={connection._id} userId={connection._id} setTargetUserId={setTargetUserId} photoUrl={connection.photoUrl} name={connection.name} setPhotoUrl={setPhotoUrl} setUserName={setUserName} /> })}
+    <div className='h-full flex overflow-hidden '>
+      <div className='h-full w-[25%] border-r border-white cursor-pointer p-1 bg-[#081526] overflow-y-auto scrollbar-hidden bg-gradient-to-r from-[#00092d] opacity-70'>
+        {connections.map((connection) => {
+          return <ChatList key={connection._id} userId={connection._id}
+            photoUrl={connection.photoUrl}
+            name={connection.name} setPhotoUrl={setPhotoUrl} setUserName={setUserName}
+            selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+        })}
       </div>
 
-      <div className='h-full w-[75%] border-r-1 overflow-auto'>
-        <ChatWindow targetUserId={targetUserId} photoUrl={photoUrl} userName={userName} />
+      <div className='h-full w-[75%] border-r-1 overflow-auto  '>
+        <ChatWindow photoUrl={photoUrl} userName={userName} user={user} />
       </div>
     </div >
   )

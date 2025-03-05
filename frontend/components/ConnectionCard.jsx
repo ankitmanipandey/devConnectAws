@@ -3,12 +3,15 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateConnections } from '../config/connectionSlice'
 import ConnectionDetailCard from './ConnectionDetailCard'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { setLoader } from '../config/switchSlice'
 import Loader from './Loader'
 import { BACKEND_URL } from '../hardcoded/constants'
+import { setTargetUserId } from '../config/chatSlice'
 
 export default function ConnectionCard({ connection }) {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const loader = useSelector(store => store.switch.loader)
     const [isDetailCard, setIsDetailCard] = useState(false);
@@ -36,11 +39,13 @@ export default function ConnectionCard({ connection }) {
                 <p>{connection?.name}</p>
                 <p>{connection?.skills}</p>
                 <div className='flex gap-4 p-2 font-medium text-[#FEFFFE]'>
-                    <button className='py-2 px-3 bg-blue-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={() => {setIsDetailCard(true) }}>Details</button>
+                    <button className='py-2 px-3 bg-green-700 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={() => { dispatch(setTargetUserId(connection?._id)); navigate("/chat") }}>Chat</button>
+                    <button className='py-2 px-3 bg-blue-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={() => { setIsDetailCard(true) }}>Details</button>
                     <button className='py-2 px-3 bg-red-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={handleRemove}>Remove</button>
                 </div>
-            </div>
-            {isDetailCard && <ConnectionDetailCard connection={connection} setIsDetailCard={setIsDetailCard} />}
+            </div >
+            {isDetailCard && <ConnectionDetailCard connection={connection} setIsDetailCard={setIsDetailCard} />
+            }
 
         </>
     )
