@@ -35,7 +35,7 @@ export default function Connections() {
       </p>)
 
   return loader ? <Loader /> : (
-    <div className='w-full min-h-screen fixed flex flex-col mt-10 items-center gap-3'>
+    <div className='w-full h-screen flex flex-col mt-10 items-center gap-3'>
       {connections.map((connection) => <ConnectionCard key={connection._id} connection={connection} />)}
     </div>
   )

@@ -85,7 +85,7 @@ const Navbar = () => {
                     <Link to={"/feed"} className={`ml-5 text-[#FEFFFE] cursor-pointer border-1 border-transparent transition-all duration-200 ease-in-out px-2 py-1 rounded-xl hover:bg-[#FEFFFE] hover:text-black ${location.pathname === "/feed" ? "bg-white text-black" : ""}`}>Feed</Link>
                     <Link to={"/requests"} className={`ml-5 text-[#FEFFFE] cursor-pointer border-1 border-transparent transition-all duration-200 ease-in-out px-2 py-1 rounded-xl hover:bg-[#FEFFFE] hover:text-black ${location.pathname === "/requests" ? "bg-[#FEFFFE] text-black" : ""}`}>Requests</Link>
                     <Link to={"/connections"} className={`ml-5 text-[#FEFFFE] cursor-pointer border-1 border-transparent transition-all duration-200 ease-in-out px-2 py-1 rounded-xl hover:bg-[#FEFFFE] hover:text-black ${location.pathname === "/connections" ? "bg-[#FEFFFE] text-black" : ""}`}>Connections</Link>
-                    <Link to={"/messages"} className={`ml-5 text-[#FEFFFE] cursor-pointer border-1 border-transparent transition-all duration-200 ease-in-out px-2 py-1 rounded-xl hover:bg-[#FEFFFE] hover:text-black ${location.pathname === "/messages" ? "bg-[#FEFFFE] text-black" : ""}`}>Messages</Link>
+                    <Link to={"/chat"} className={`ml-5 text-[#FEFFFE] cursor-pointer border-1 border-transparent transition-all duration-200 ease-in-out px-2 py-1 rounded-xl hover:bg-[#FEFFFE] hover:text-black ${location.pathname === "/chat" ? "bg-[#FEFFFE] text-black" : ""}`}>Chat</Link>
                 </div>
 
                 <div ref={mobileRef} className="md:hidden flex items-center cursor-pointer p-4" onClick={handleBarClick}>
@@ -96,10 +96,10 @@ const Navbar = () => {
                     <p className="">{user?.name}</p>
                     <img src={user?.photoUrl} alt="" className="rounded-full h-10 w-10 object-cover cursor-pointer" />
                     {user.isPremium && <i className="fa-regular fa-circle-check text-xl"></i>}
-                    <div className={`bg-[#00032d] top-14 text-white h-27 fixed right-0 p-2 z-20 rounded-bl-sm hidden md:block transition-all duration-200 ease-in-out ${isProfileNav ? "translate-x-0" : "translate-x-full"}`}>
-                        <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={() => navigate("/premium")}>Premium</li>
-                        <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={() => navigate("/profile")}>Profile</li>
-                        <li className="list-none px-2 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl" onClick={handleSignOut}>SignOut</li>
+                    <div className={`bg-[#00032d] top-12 text-white h-27 fixed right-0 p-2 z-20 rounded-bl-sm hidden md:block transition-all duration-200 ease-in-out ${isProfileNav ? "translate-x-0" : "translate-x-full"}`}>
+                        <li className={`list-none px-2 mb-1 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl ${location.pathname === "/premium" ? "bg-white text-black" : ""}`} onClick={() => navigate("/premium")}>Premium</li>
+                        <li className={`list-none px-2 mb-1 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl ${location.pathname === "/profile" ? "bg-white text-black" : ""}`} onClick={() => navigate("/profile")}>Profile</li>
+                        <li className={`list-none px-2 mb-1 cursor-pointer p-1 transition-all duration-200 ease-in-out hover:bg-[#FEFFFE] hover:text-[#00092d] rounded-xl ${location.pathname === "/login" ? "bg-white text-black" : ""}`} onClick={handleSignOut}>SignOut</li>
                     </div>
                 </div>
             </div>}

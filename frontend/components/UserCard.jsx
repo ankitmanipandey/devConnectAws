@@ -46,8 +46,8 @@ export default function UserCard({ userName, about, photoUrl, userId, isPremium 
                 </div>
                 <p className='text-[#FEFFFE] text-sm font-medium'>{about}</p>
                 <div className='flex justify-center gap-3 text-[#FEFFFE] mt-3 font-medium'>
-                    <button className='py-2 px-2 bg-pink-500 rounded-lg cursor-pointer' onClick={handleIgnore}>Ignore</button>
-                    <button className='py-2 px-2 bg-blue-500 rounded-lg cursor-pointer' onClick={handleInterested}>Interested</button>
+                    <button className='py-2 px-2 bg-pink-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={handleIgnore}>Ignore</button>
+                    <button className='py-2 px-2 bg-blue-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={handleInterested}>Interested</button>
                 </div>
             </div>
         </div>

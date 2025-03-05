@@ -9,7 +9,6 @@ import { BACKEND_URL } from '../hardcoded/constants'
 
 export default function RequestCard({ userName, photoUrl, about, requestId, isPremium }) {
     const dispatch = useDispatch()
-    console.log(isPremium)
     const loader = useSelector(store => store?.switch?.loader)
     const handleReject = async () => {
         try {
@@ -38,7 +37,7 @@ export default function RequestCard({ userName, photoUrl, about, requestId, isPr
         }
     }
     return loader ? <Loader /> : (
-        <div className='h-[50%] w-[80%] p-5 flex flex-col items-center gap-2 md:h-28 md:w-[70%] bg-[#00092d] opacity-95 rounded-lg  md:flex md:flex-row md:justify-between md:p-3 text-[#FEFFFE] md:items-center'>
+        <div className='h-72 w-72 p-5 flex flex-col items-center gap-2 md:h-28 md:w-[70%] bg-[#00092d] opacity-95 rounded-lg  md:flex md:flex-row md:justify-between md:p-3 text-[#FEFFFE] md:items-center'>
             <div className='flex flex-col md:flex-row items-center gap-2'>
                 <img src={photoUrl} alt="" className='h-14 w-14 rounded-full m-1' />
                 {isPremium && <i className="fa-regular fa-circle-check relative top-1 text-xl text-[#FEFFFE]"></i>}
@@ -46,8 +45,8 @@ export default function RequestCard({ userName, photoUrl, about, requestId, isPr
             <p>{userName}</p>
             <p>{about}</p>
             <div className='flex gap-4 p-2 font-medium text-[#FEFFFE]'>
-                <button className='py-2 px-3 bg-pink-500 rounded-lg cursor-pointer' onClick={handleReject}>Reject</button>
-                <button className='py-2 px-3 bg-blue-500 rounded-lg cursor-pointer' onClick={handleAccept}>Accept</button>
+                <button className='py-2 px-3 bg-pink-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={handleReject}>Reject</button>
+                <button className='py-2 px-3 bg-blue-500 rounded-lg cursor-pointer transition-all duration-150 ease-in-out hover:scale-105' onClick={handleAccept}>Accept</button>
             </div>
         </div>
     )

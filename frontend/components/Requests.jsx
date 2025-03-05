@@ -36,7 +36,7 @@ export default function Requests() {
       </p>)
 
   return loader ? <Loader /> : (
-    < div className='w-full min-h-screen fixed flex flex-col mt-10 items-center gap-3' >
+    < div className='w-full h-screen flex flex-col mt-10 items-center gap-3' >
       {requestedUser.map((user) => {
         return < RequestCard requestId={user?._id} key={user?.fromUserId?._id}
           isPremium={user?.fromUserId?.isPremium}

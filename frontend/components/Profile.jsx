@@ -45,8 +45,8 @@ export default function Profile() {
   }, [loggedInUser])
 
   return loader ? <Loader /> : (
-    <div className='flex justify-center h-[50%] mt-2 items-center'>
-      <div className='md:h-[77%]'>
+    <div className='flex justify-center items-center'>
+      <div className='relative top-10'>
         <div className='flex justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='size-20 md:hidden rounded-full' />
         </div>
@@ -56,7 +56,7 @@ export default function Profile() {
           setIsUploading={setIsUploading} isUploading={isUploading} />}
       </div>
 
-      <div className='hidden bg-[#00092d] opacity-90 h-[75%] p-2 w-72 m-2 md:w-92 md:flex flex-col rounded-lg'>
+      <div className='hidden bg-[#00092d] opacity-90 p-2 w-72 m-2 md:w-92 md:flex flex-col rounded-lg justify-center items-center relative top-10'>
         <div className='h-[50%] flex flex-col items-center justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='rounded-full size-32 m-2 object-center' />
           <div className='flex justify-center items-center gap-3'>
