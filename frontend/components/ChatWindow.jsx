@@ -28,10 +28,10 @@ export default function ChatWindow({ user }) {
 
         socket.emit("joinChat", { loggedInUserId, targetUserId })
 
-        socket.on('messageReceived', ({ text }) => {
-            const { message, senderId, time } = text
-            if (!chatMessages)
-                setChatMessages((prev) => [...prev, { message, senderId, time }])
+        socket.on('messageReceived', (newMessage) => {
+            const { chatMessage, senderId, createdAt } = newMessage
+            if (!chatMessages) return
+            setChatMessages((prev) => [...prev, { chatMessage, senderId, createdAt }])
             getChatData()
         })
 
@@ -50,11 +50,7 @@ export default function ChatWindow({ user }) {
         socket.emit('sendMessage', {
             loggedInUserId,
             targetUserId,
-            text: {
-                senderId: loggedInUserId,
-                message: message,
-                time: new Date(Date.now())
-            }
+            message
         })
         getChatData()
         setMessage("")
@@ -92,14 +88,14 @@ export default function ChatWindow({ user }) {
                         {chatMessages?.map((msg, index) => (
                             <div
                                 key={index}
-                                className={`inline-block px-4 py-2 rounded-2xl relative m-2 ${msg?.chatMessage?.senderId === loggedInUserId
+                                className={`inline-block px-4 py-2 rounded-2xl relative m-2 ${msg?.senderId === loggedInUserId
                                     ? "self-end bg-[#0084ff] text-white rounded-br-sm"
                                     : "self-start bg-[#262d37] text-white rounded-bl-sm"
                                     }`}
                             >
-                                <p>{msg?.chatMessage?.message}</p>
+                                <p>{msg?.chatMessage}</p>
                                 <span className="text-xs opacity-60  bottom-[-18px] right-0">
-                                    {new Date(msg?.chatMessage?.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    {new Date(msg?.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                             </div>
                         ))}

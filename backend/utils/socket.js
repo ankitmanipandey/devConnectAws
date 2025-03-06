@@ -18,17 +18,16 @@ const initializeSocket = (server) => {
 
         })
 
-        socket.on("sendMessage", async ({ loggedInUserId, targetUserId, text }) => {
+        socket.on("sendMessage", async ({ loggedInUserId, targetUserId, message }) => {
             const roomId = [loggedInUserId, targetUserId].sort().join("_")
 
             const newMessage = new chatData({
                 senderId: loggedInUserId,
                 receiverId: targetUserId,
-                chatMessage: text,
+                chatMessage: message,
             })
             await newMessage.save()
-
-            io.to(roomId).emit('messageReceived', { text })
+            io.to(roomId).emit('messageReceived', newMessage)
         })
 
         socket.on("disconnect", () => {
