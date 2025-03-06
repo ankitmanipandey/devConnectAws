@@ -1,5 +1,6 @@
 const socket = require('socket.io')
 const { FRONTEND_URL } = require('./constants')
+const chatData = require('../model/chatData')
 
 const initializeSocket = (server) => {
     const io = socket(server, {
@@ -16,8 +17,17 @@ const initializeSocket = (server) => {
             socket.join(roomId)
 
         })
-        socket.on("sendMessage", ({ loggedInUserId, targetUserId, text }) => {
+
+        socket.on("sendMessage", async ({ loggedInUserId, targetUserId, text }) => {
             const roomId = [loggedInUserId, targetUserId].sort().join("_")
+
+            const newMessage = new chatData({
+                senderId: loggedInUserId,
+                receiverId: targetUserId,
+                chatMessage: text,
+            })
+            await newMessage.save()
+
             io.to(roomId).emit('messageReceived', { text })
         })
 

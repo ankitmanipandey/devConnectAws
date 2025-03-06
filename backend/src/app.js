@@ -11,6 +11,7 @@ const paymentRouter = require('../routes/payment.js')
 const paymentWebhookRouter = require('../routes/paymentWebhook.js')
 const { createServer } = require('http')
 const initializeSocket = require('../utils/socket.js')
+const chatRouter = require('../routes/chatRouter.js')
 require('dotenv').config()
 
 const app = express()
@@ -29,6 +30,7 @@ app.use('/', profileRouter)
 app.use('/', requestRouter)
 app.use('/', userRouter)
 app.use('/', paymentRouter)
+app.use('/', chatRouter)
 
 //Database and server call
 

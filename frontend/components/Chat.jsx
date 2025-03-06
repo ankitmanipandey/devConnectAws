@@ -12,9 +12,6 @@ import axios from "axios"
 export default function Messages() {
   const user = useSelector(store => store.user)
   const connections = useSelector(store => store.connection)
-  const [userName, setUserName] = useState('')
-  const [photoUrl, setPhotoUrl] = useState('')
-  const [selectedUser, setSelectedUser] = useState()
   const dispatch = useDispatch()
   const fetchConnections = async () => {
     try {
@@ -39,13 +36,12 @@ export default function Messages() {
         {connections.map((connection) => {
           return <ChatList key={connection._id} userId={connection._id}
             photoUrl={connection.photoUrl}
-            name={connection.name} setPhotoUrl={setPhotoUrl} setUserName={setUserName}
-            selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+            name={connection.name} />
         })}
       </div>
 
       <div className='h-full w-[75%] border-r-1 overflow-auto  '>
-        <ChatWindow photoUrl={photoUrl} userName={userName} user={user} />
+        <ChatWindow user={user} />
       </div>
     </div >
   )
