@@ -2,11 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTargetPhotoUrl, setTargetUserId, setTargetUserName } from "../config/chatSlice";
 
 export default function ChatList({ photoUrl, name, userId }) {
-
     const dispatch = useDispatch()
     const { targetUserId } = useSelector(store => store.chat)
     return (
-        <div className={`h-16 flex items-center transition-all duration-100 ease-in-out  rounded-lg p-1 mb-1 ${targetUserId === userId ? "bg-[#4a5078] " : "hover:bg-[#292d49]"}`}
+        <div className={`hidden h-16 md:flex items-center transition-all duration-100 ease-in-out rounded-lg p-1 mb-1 ${targetUserId === userId ? "bg-[#4a5078] " : "hover:bg-[#292d49]"}`}
             onClick={() => {
                 dispatch(setTargetUserId(userId));
                 dispatch(setTargetPhotoUrl(photoUrl));

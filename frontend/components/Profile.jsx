@@ -11,6 +11,7 @@ import { BACKEND_URL } from '../hardcoded/constants'
 export default function Profile() {
   const loggedInUser = useSelector(store => store.user)
   const dispatch = useDispatch()
+  const { isMobileOptions } = useSelector(store => store.switch)
   const [name, setName] = useState(loggedInUser?.name)
   const [about, setAbout] = useState(loggedInUser?.about)
   const [skills, setSkills] = useState(loggedInUser?.skills)
@@ -45,7 +46,7 @@ export default function Profile() {
   }, [loggedInUser])
 
   return loader ? <Loader /> : (
-    <div className='flex justify-center items-center'>
+    <div className={`flex justify-center items-center ${isMobileOptions ? "-z-10" : "z-auto"}`}>
       <div className='relative top-10'>
         <div className='flex justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='size-20 md:hidden rounded-full' />
@@ -56,7 +57,7 @@ export default function Profile() {
           setIsUploading={setIsUploading} isUploading={isUploading} />}
       </div>
 
-      <div className='hidden bg-[#00092d] opacity-90 p-2 w-72 m-2 md:w-92 md:flex flex-col rounded-lg justify-center items-center relative top-10'>
+      <div className={`hidden bg-[#00092d] opacity-90 p-2 w-72 m-2 md:w-92 md:flex flex-col rounded-lg justify-center items-center relative top-10`}>
         <div className='h-[50%] flex flex-col items-center justify-center'>
           <img src={loggedInUser?.photoUrl} alt="" className='rounded-full size-32 m-2 object-center' />
           <div className='flex justify-center items-center gap-3'>

@@ -11,6 +11,7 @@ import { BACKEND_URL } from '../hardcoded/constants'
 export default function Requests() {
   const dispatch = useDispatch()
   const loader = useSelector(store => store?.switch?.loader)
+  const { isMobileOptions } = useSelector(store => store.switch)
   const requestedUser = useSelector(store => store?.request)
   const handleRequest = async () => {
     try {
@@ -36,7 +37,7 @@ export default function Requests() {
       </p>)
 
   return loader ? <Loader /> : (
-    < div className='w-full h-screen flex flex-col mt-10 items-center gap-3' >
+    < div className={`w-full h-screen flex flex-col mt-10 items-center gap-3 ${isMobileOptions ? "-z-10" : "z-auto"}`} >
       {requestedUser.map((user) => {
         return < RequestCard requestId={user?._id} key={user?.fromUserId?._id}
           isPremium={user?.fromUserId?.isPremium}
