@@ -15,7 +15,7 @@ const initializeSocket = (server) => {
     const io = socket(server, {
         cors: {
             origin: FRONTEND_URL,
-            methods: ["GET", "POST"];
+            methods: ["GET", "POST"],
             credentials: true
         },
         transports: ["websocket", "polling"]
