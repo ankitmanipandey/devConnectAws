@@ -49,7 +49,7 @@ export default function ChatWindow({ user }) {
 
 
     const sendMessage = () => {
-        if (!message.trim()) return
+        if (!socket || !message.trim()) return
 
         socket.emit('sendMessage', {
             loggedInUserId,

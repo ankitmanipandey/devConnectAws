@@ -1,6 +1,10 @@
 import io from 'socket.io-client'
-import { BACKEND_URL } from './constants'
+import { SOCKET_URL } from './constants'
 
 export const createSocketConnection = () => {
-    return io(BACKEND_URL)
+    return io(SOCKET_URL, {
+        transports: ["websocket", "polling"],
+        withCredentials: true
+        
+    })
 }

@@ -15,9 +15,12 @@ const initializeSocket = (server) => {
     const io = socket(server, {
         cors: {
             origin: FRONTEND_URL,
+            methods: ["GET", "POST"];
             credentials: true
-        }
+        },
+        transports: ["websocket", "polling"]
     })
+    console.log("WebSocket Server Initialized")
 
     io.on('connection', (socket) => {
         //Handle Event
@@ -25,11 +28,13 @@ const initializeSocket = (server) => {
         socket.on("joinChat", ({ loggedInUserId, targetUserId }) => {
             const roomId = getSecretRoomId(loggedInUserId, targetUserId)
             socket.join(roomId)
+            console.log("Roomi Joined")
 
         })
 
         socket.on("sendMessage", async ({ loggedInUserId, targetUserId, message }) => {
             try {
+                console.log("Inside the send Message block")
                 const roomId = getSecretRoomId(loggedInUserId, targetUserId)
                 const newMessage = new chatData({
                     senderId: loggedInUserId,
@@ -40,12 +45,18 @@ const initializeSocket = (server) => {
                 io.to(roomId).emit('messageReceived', newMessage)
             }
             catch (err) {
-                console.log(err.message)
+                console.log("Error in Sending message")
             }
         })
 
         socket.on("disconnect", () => {
-            socket.rooms.forEach(room => socket.leave(room));
+            try {
+                socket.rooms.forEach(room => socket.leave(room));
+                console.log("socket disconnected")
+            }
+            catch (err) {
+                console.log("Error in socket disconnection")
+            }
         })
     })
 }
