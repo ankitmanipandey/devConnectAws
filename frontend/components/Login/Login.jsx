@@ -21,7 +21,7 @@ const Login = () => {
   const [about, setAbout] = useState("")
   const loader = useSelector(store => store.switch.loader)
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-
+  console.log(BACKEND_URL)
   const handlePhotoUpload = async (event) => {
     dispatch(setLoader(true))
     const file = event.target.files[0]
