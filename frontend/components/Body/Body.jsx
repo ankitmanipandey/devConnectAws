@@ -12,6 +12,7 @@ const Body = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+    console.log(BACKEND_URL)
     const fetchUserData = async () => {
         try {
             const res = await axios.get(`${BACKEND_URL}/profile/view`,
