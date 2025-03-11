@@ -3,7 +3,7 @@ const userAuth = require('../middlewares/userAuth')
 const chatData = require('../model/chatData')
 const chatRouter = express.Router()
 
-chatRouter.get("/get/chat/data/:loggedInUserId/:targetUserId", userAuth, async (req, res) => {
+chatRouter.get("/get/chat/data/:loggedInUserId/:targetUserId", async (req, res) => {
     try {
         const { loggedInUserId, targetUserId } = req.params
         const chatRecords = await chatData.find({
