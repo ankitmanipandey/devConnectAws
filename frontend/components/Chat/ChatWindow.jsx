@@ -20,7 +20,8 @@ export default function ChatWindow({ user }) {
 
     const getChatData = async () => {
         try {
-            const res = await axios(`${BACKEND_URL}/get/chat/data/${loggedInUserId}/${targetUserId}`, { withCredentials: true })
+            console.log(BACKEND_URL)
+            const res = await axios.get(`${BACKEND_URL}/get/chat/data/${loggedInUserId}/${targetUserId}`, { withCredentials: true })
             if (!res?.data?.success) {
                 setChatMessages([])
             }
